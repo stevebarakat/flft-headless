@@ -1,5 +1,13 @@
 .content {
-  line-height: 1.6;
+  line-height: 1.8;
+  color: hsl(0, 0%, 15%);
+  font-size: 1.0625rem;
+}
+
+.content::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .content :global(h1),
@@ -8,49 +16,274 @@
 .content :global(h4),
 .content :global(h5),
 .content :global(h6) {
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   margin-bottom: 1rem;
   font-weight: 700;
+  line-height: 1.3;
+  color: hsl(0, 0%, 10%);
 }
 
 .content :global(h1) {
   font-size: 2.5rem;
+  margin-top: 3rem;
 }
 
 .content :global(h2) {
   font-size: 2rem;
+  margin-top: 2.5rem;
 }
 
 .content :global(h3) {
-  font-size: 1.75rem;
+  font-size: 1.625rem;
+}
+
+.content :global(h4) {
+  font-size: 1.375rem;
+}
+
+.content :global(h5) {
+  font-size: 1.125rem;
+}
+
+.content :global(h6) {
+  font-size: 1rem;
 }
 
 .content :global(p) {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.content :global(p:last-child) {
+  margin-bottom: 0;
 }
 
 .content :global(img) {
   max-width: 100%;
   height: auto;
-  border-radius: 4px;
+  border-radius: 8px;
+  margin: 2rem 0;
+  box-shadow: 0 2px 12px hsl(0, 0%, 0%, 0.1);
+}
+
+.content :global(img.alignleft) {
+  float: left;
+  margin: 0.5rem 1.5rem 1rem 0;
+  max-width: 50%;
+}
+
+.content :global(img.alignright) {
+  float: right;
+  margin: 0.5rem 0 1rem 1.5rem;
+  max-width: 50%;
+}
+
+.content :global(img.aligncenter) {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.content :global(img.alignnone) {
+  margin: 2rem 0;
+}
+
+.content :global(.wp-caption),
+.content :global(figure.wp-caption) {
+  max-width: 100%;
+  margin: 2rem 0;
+}
+
+.content :global(.wp-caption.alignleft),
+.content :global(figure.wp-caption.alignleft) {
+  float: left;
+  margin: 0.5rem 1.5rem 1rem 0;
+  max-width: 50%;
+}
+
+.content :global(.wp-caption.alignright),
+.content :global(figure.wp-caption.alignright) {
+  float: right;
+  margin: 0.5rem 0 1rem 1.5rem;
+  max-width: 50%;
+}
+
+.content :global(.wp-caption.aligncenter),
+.content :global(figure.wp-caption.aligncenter) {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.content :global(.wp-caption img) {
+  margin: 0;
+}
+
+.content :global(.wp-caption-text),
+.content :global(figcaption) {
+  font-size: 0.875rem;
+  color: hsl(0, 0%, 45%);
+  font-style: italic;
+  margin-top: 0.5rem;
+  text-align: center;
+  line-height: 1.5;
 }
 
 .content :global(a) {
-  color: hsl(200, 100%, 40%);
-  text-decoration: underline;
+  color: hsl(201, 100%, 38%);
+  text-decoration: none;
+  border-bottom: 1px solid hsl(201, 100%, 38%);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.content :global(a:hover) {
+  color: hsl(201, 100%, 32%);
+  border-bottom-color: hsl(201, 100%, 32%);
 }
 
 .content :global(ul),
 .content :global(ol) {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   padding-left: 2rem;
 }
 
+.content :global(ul) {
+  list-style-type: disc;
+}
+
+.content :global(ol) {
+  list-style-type: decimal;
+}
+
+.content :global(li) {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.content :global(li p) {
+  margin-bottom: 0.75rem;
+}
+
 .content :global(blockquote) {
-  border-left: 4px solid hsl(200, 100%, 40%);
-  padding-left: 1rem;
+  border-left: 4px solid hsl(201, 100%, 45%);
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
   margin-left: 0;
+  background-color: hsl(200, 50%, 98%);
+  border-radius: 0 6px 6px 0;
   font-style: italic;
-  color: hsl(0, 0%, 40%);
+  color: hsl(0, 0%, 30%);
+  box-shadow: 0 2px 8px hsl(0, 0%, 0%, 0.05);
+}
+
+.content :global(blockquote p) {
+  margin-bottom: 0.75rem;
+}
+
+.content :global(blockquote p:last-child) {
+  margin-bottom: 0;
+}
+
+.content :global(code) {
+  background-color: hsl(0, 0%, 96%);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+  color: hsl(0, 70%, 45%);
+}
+
+.content :global(pre) {
+  background-color: hsl(0, 0%, 15%);
+  color: hsl(0, 0%, 95%);
+  padding: 1.25rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 2rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.content :global(pre code) {
+  background-color: transparent;
+  padding: 0;
+  color: inherit;
+}
+
+.content :global(hr) {
+  border: none;
+  border-top: 2px solid hsl(0, 0%, 90%);
+  margin: 2.5rem 0;
+}
+
+.content :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.content :global(th),
+.content :global(td) {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid hsl(0, 0%, 90%);
+}
+
+.content :global(th) {
+  font-weight: 600;
+  background-color: hsl(0, 0%, 97%);
+  color: hsl(0, 0%, 10%);
+}
+
+.content :global(tr:hover) {
+  background-color: hsl(0, 0%, 99%);
+}
+
+@media (max-width: 768px) {
+  .content {
+    font-size: 1rem;
+  }
+
+  .content :global(h1) {
+    font-size: 2rem;
+  }
+
+  .content :global(h2) {
+    font-size: 1.75rem;
+  }
+
+  .content :global(h3) {
+    font-size: 1.5rem;
+  }
+
+  .content :global(blockquote) {
+    padding: 0.875rem 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .content :global(img.alignleft),
+  .content :global(img.alignright) {
+    float: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+  }
+
+  .content :global(.wp-caption.alignleft),
+  .content :global(.wp-caption.alignright),
+  .content :global(figure.wp-caption.alignleft),
+  .content :global(figure.wp-caption.alignright) {
+    float: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+  }
 }
 
