@@ -64,3 +64,14 @@ export type WpSiteInfo = {
   logo: WpSiteLogo | null;
 };
 
+export type WpSocialLink = {
+  id: string;
+  iconId: string;
+  iconUrl: string;
+  isEnabled: boolean;
+  platform: string;
+  sortOrder: number;
+  url: string;
+  handle: string;
+};
+

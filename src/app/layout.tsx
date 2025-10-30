@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
-import { getMenu, getSiteInfo } from "@/lib/wp-data";
+import { getMenu, getSiteInfo, getSocialLinks } from "@/lib/wp-data";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,11 +26,12 @@ export default async function RootLayout({
 }>) {
   const menu = await getMenu("Main");
   const siteInfo = await getSiteInfo("832");
+  const socialLinks = await getSocialLinks();
 
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header menu={menu} siteInfo={siteInfo} />
+        <Header menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
         <main>{children}</main>
       </body>
     </html>

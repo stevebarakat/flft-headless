@@ -132,3 +132,18 @@ export const GET_MEDIA_BY_ID = `
   }
 `;
 
+export const GET_SOCIAL_LINKS = `
+  query GetSocialLinks {
+    socialLinks {
+      iconId
+      iconUrl
+      isEnabled
+      platform
+      sortOrder
+      url
+      handle
+      id
+    }
+  }
+`;
+

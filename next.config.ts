@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         port: "10023",
         pathname: "/wp-content/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
     unoptimized: process.env.NODE_ENV === "development",
   },

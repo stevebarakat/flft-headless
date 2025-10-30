@@ -5,7 +5,7 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 1080px;
   margin: 0 auto;
   padding: 0 1rem;
   display: flex;
@@ -16,7 +16,8 @@
 .topSection {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 1rem 0;
 }
 
@@ -26,6 +27,7 @@
   text-decoration: none;
   align-items: center;
   text-align: center;
+  flex: 1;
 }
 
 .logo {
@@ -45,6 +47,39 @@
   color: hsl(0, 0%, 50%);
   margin-top: 0.25rem;
   font-style: italic;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchInput {
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  min-width: 200px;
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 20%);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: hsl(200, 100%, 50%);
+}
+
+.searchInput:disabled {
+  background-color: hsl(0, 0%, 95%);
+  cursor: not-allowed;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 0.75rem;
+  color: hsl(0, 0%, 50%);
+  pointer-events: none;
 }
 
 .nav {
@@ -78,6 +113,10 @@
   position: relative;
 }
 
+.menuItem:hover .menuLink {
+  background-color: var(--color-dark-blue);
+}
+
 .menuLink {
   color: hsl(0, 0%, 100%);
   text-decoration: none;
@@ -102,7 +141,6 @@
   border-radius: 4px;
   list-style: none;
   margin: 0;
-  margin-top: 0.5rem;
   padding: 0.5rem 0;
   min-width: 200px;
   opacity: 0;
@@ -112,7 +150,8 @@
   box-shadow: 0 4px 6px hsl(0, 0%, 0%, 0.1);
 }
 
-.menuItem:hover .submenu {
+.menuItem:hover .submenu,
+.submenu:hover {
   opacity: 1;
   pointer-events: auto;
 }

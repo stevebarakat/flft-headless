@@ -7,8 +7,9 @@ import {
   GET_ALL_POSTS,
   GET_MEDIA_BY_ID,
   GET_SITE_INFO,
+  GET_SOCIAL_LINKS,
 } from "./graphql/queries";
-import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo } from "@/types/wp";
+import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink } from "@/types/wp";
 
 export async function getMenu(name: string = "Main"): Promise<WpMenu | null> {
   try {
@@ -145,6 +146,21 @@ export async function getSiteInfo(logoId?: string): Promise<WpSiteInfo> {
       url: "",
       logo: null,
     };
+  }
+}
+
+export async function getSocialLinks(): Promise<WpSocialLink[]> {
+  try {
+    const data = await wpClient.request<{
+      socialLinks: WpSocialLink[];
+    }>(GET_SOCIAL_LINKS);
+
+    return data.socialLinks
+      .filter((link) => link.isEnabled)
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+  } catch (error) {
+    console.error("Error fetching social links:", error);
+    return [];
   }
 }
 

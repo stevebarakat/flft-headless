@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { getPageByUri, getPostByUri } from "@/lib/wp-data";
 import { Content } from "@/components/Content";
+import { HeroSlider } from "@/components/HeroSlider";
 import styles from "./page.module.css";
 
 type PageProps = {
@@ -21,10 +22,14 @@ export default async function DynamicPage({ params }: PageProps) {
     notFound();
   }
 
+  const isHomepage = uri === "/";
+
   return (
-    <article className={styles.article}>
-      <div className={styles.container}>
-        <h1 className={styles.title}>{content.title}</h1>
+    <>
+      {isHomepage && <HeroSlider />}
+      <article className={styles.article}>
+        <div className={styles.container}>
+          <h1 className={styles.title}>{content.title}</h1>
 
         {content.featuredImage?.node && (
           <div className={styles.featuredImage}>
@@ -51,6 +56,7 @@ export default async function DynamicPage({ params }: PageProps) {
         <Content content={content.content} />
       </div>
     </article>
+    </>
   );
 }
 

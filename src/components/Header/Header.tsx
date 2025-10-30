@@ -1,18 +1,22 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { WpMenu, WpSiteInfo } from "@/types/wp";
+import { Search } from "lucide-react";
+import type { WpMenu, WpSiteInfo, WpSocialLink } from "@/types/wp";
+import { SocialLinks } from "@/components/SocialLinks";
 import styles from "./Header.module.css";
 
 type HeaderProps = {
   menu: WpMenu | null;
   siteInfo: WpSiteInfo;
+  socialLinks: WpSocialLink[];
 };
 
-export function Header({ menu, siteInfo }: HeaderProps) {
+export function Header({ menu, siteInfo, socialLinks }: HeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <div className={styles.topSection}>
+          <SocialLinks links={socialLinks} />
           <Link href="/" className={styles.logoContainer}>
             {siteInfo.logo?.url ? (
               <Image
@@ -30,6 +34,15 @@ export function Header({ menu, siteInfo }: HeaderProps) {
               <span className={styles.tagline}>{siteInfo.tagline}</span>
             )}
           </Link>
+          <div className={styles.searchContainer}>
+            <input
+              type="search"
+              placeholder="Search..."
+              className={styles.searchInput}
+              disabled
+            />
+            <Search size={20} className={styles.searchIcon} />
+          </div>
         </div>
         {menu && menu.menuItems.nodes.length > 0 && (
           <nav className={styles.nav}>
