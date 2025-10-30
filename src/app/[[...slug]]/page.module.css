@@ -1,0 +1,35 @@
+.article {
+  padding: 2rem 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: hsl(0, 0%, 10%);
+}
+
+.featuredImage {
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.date {
+  display: block;
+  color: hsl(0, 0%, 50%);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
