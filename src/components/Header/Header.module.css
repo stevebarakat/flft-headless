@@ -121,6 +121,10 @@
   padding: 0.75rem 1.5rem;
   display: block;
   transition: background-color 0.2s;
+  font-weight: bold;
+  padding: 0.618em 1.618em;
+  color: #fff;
+  text-shadow: 0 -1px 0 #2f2f2f;
 }
 
 .menuLink:hover {
