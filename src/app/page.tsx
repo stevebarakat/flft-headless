@@ -3,7 +3,7 @@ import Image from "next/image";
 import { getPageByUri, getSliderImages } from "@/lib/wp-data";
 import { Content } from "@/components/Content";
 import { HeroSlider } from "@/components/HeroSlider";
-import styles from "./[[...slug]]/page.module.css";
+import styles from "./page.module.css";
 
 export default async function HomePage() {
   const page = await getPageByUri("/");
@@ -18,7 +18,7 @@ export default async function HomePage() {
       <HeroSlider images={sliderImages} />
       <article className={styles.article}>
         <div className={styles.container}>
-          <h1 className={styles.title}>{page.title}</h1>
+          <h1 className="visuallyHidden">{page.title}</h1>
 
           {page.featuredImage?.node && (
             <div className={styles.featuredImage}>
