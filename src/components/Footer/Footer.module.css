@@ -2,12 +2,12 @@
   background-color: hsl(198, 36%, 52%);
   color: hsl(0, 0%, 100%);
   padding: 2rem 0 1rem;
-  max-width: 1080px;
+  max-width: 1036px;
   margin: 0 auto;
 }
 
 .container {
-  max-width: 1080px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 1rem;
 }

@@ -81,29 +81,8 @@
 }
 
 .button {
-  display: inline-block;
+  composes: buttonGradient from global;
   padding: 0.875rem 2rem;
-  background: linear-gradient(
-    to bottom,
-    hsl(208, 72%, 64%),
-    hsl(208, 72%, 48%)
-  );
-  color: hsl(0, 0%, 100%);
   font-size: 1.125rem;
-  font-weight: 700;
-  text-decoration: none;
-  border-radius: 9999px;
-  box-shadow: 0 2px 4px hsl(0, 0%, 0%, 0.15);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px hsl(0, 0%, 0%, 0.2);
-}
-
-.button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px hsl(0, 0%, 0%, 0.15);
 }
 
