@@ -110,8 +110,10 @@
   border: 1px solid hsl(0, 0%, 90%);
   border-radius: 6px;
   overflow: hidden;
-  background-color: hsl(0, 0%, 100%);
+  background-color: hsl(0, 0%, 98%);
   padding: 0.5rem 0.5rem 0 0.5rem;
+  box-shadow: 0 2px 8px hsl(0, 0%, 0%, 0.05);
+  width: 300px;
 }
 
 .content :global(.wp-block-image img),
@@ -287,14 +289,12 @@
   color: hsl(0, 0%, 45%);
   font-style: normal;
   margin: 0;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.75rem 1rem;
   margin-left: -0.5rem;
   margin-right: -0.5rem;
   margin-bottom: -0.5rem;
   text-align: center;
   line-height: 1.5;
-  background-color: hsl(0, 0%, 98%);
-  border-top: 1px solid hsl(0, 0%, 90%);
 }
 
 .content :global(figure.alignleft figcaption),
