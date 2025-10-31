@@ -46,6 +46,36 @@ export type WpPost = {
     node: WpImage;
   } | null;
   excerpt: string | null;
+  author?: {
+    node: {
+      name: string;
+    };
+  } | null;
+  categories?: {
+    nodes: Array<{
+      name: string;
+      slug: string;
+    }>;
+  } | null;
+  commentCount?: number | null;
+};
+
+export type WpCategory = {
+  name: string;
+  slug: string;
+};
+
+export type WpPageInfo = {
+  hasNextPage: boolean;
+  endCursor: string | null;
+};
+
+export type WpCategoryArchive = {
+  posts: {
+    pageInfo: WpPageInfo;
+    nodes: WpPost[];
+  };
+  category: WpCategory | null;
 };
 
 export type WpSiteLogo = {

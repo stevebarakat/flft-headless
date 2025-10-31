@@ -1,21 +1,43 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getPageByUri, getPostByUri } from "@/lib/wp-data";
+import { getPageByUri, getPostByUri, getCategoryPosts } from "@/lib/wp-data";
 import { Content } from "@/components/Content";
+import { CategoryArchive } from "@/components/CategoryArchive";
 import styles from "./page.module.css";
 
 type PageProps = {
   params: Promise<{ slug: string[] }>;
+  searchParams: Promise<{ page?: string }>;
 };
 
-export default async function DynamicPage({ params }: PageProps) {
+export default async function DynamicPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const { page } = await searchParams;
   const uri = `/${slug.join("/")}/`;
 
-  const page = await getPageByUri(uri);
-  const post = page ? null : await getPostByUri(uri);
+  if (slug.length === 2 && slug[0] === "category") {
+    const categorySlug = slug[1];
+    const currentPage = page ? parseInt(page, 10) : 1;
+    const categoryData = await getCategoryPosts(categorySlug, 4);
 
-  const content = page || post;
+    if (!categoryData || !categoryData.category) {
+      notFound();
+    }
+
+    return (
+      <CategoryArchive
+        posts={categoryData.posts.nodes}
+        category={categoryData.category}
+        pageInfo={categoryData.posts.pageInfo}
+        currentPage={currentPage}
+      />
+    );
+  }
+
+  const pageData = await getPageByUri(uri);
+  const post = pageData ? null : await getPostByUri(uri);
+
+  const content = pageData || post;
 
   if (!content) {
     notFound();

@@ -11,8 +11,9 @@ import {
   GET_SLIDER_IMAGES,
   GET_CALL_TO_ACTION,
   GET_LATEST_TIPS_AND_TRICKS,
+  GET_POSTS_BY_CATEGORY,
 } from "./graphql/queries";
-import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage, WpCallToAction } from "@/types/wp";
+import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage, WpCallToAction, WpCategoryArchive } from "@/types/wp";
 
 export async function getMenu(name: string = "Main"): Promise<WpMenu | null> {
   try {
@@ -209,6 +210,40 @@ export async function getLatestTipsAndTricks(): Promise<WpPost[]> {
   } catch (error) {
     console.error("Error fetching latest tips and tricks:", error);
     return [];
+  }
+}
+
+export async function getCategoryPosts(
+  categorySlug: string,
+  first: number = 10,
+  after?: string | null
+): Promise<WpCategoryArchive | null> {
+  try {
+    const data = await wpClient.request<{
+      posts: {
+        pageInfo: WpCategoryArchive["posts"]["pageInfo"];
+        nodes: WpCategoryArchive["posts"]["nodes"];
+      };
+    }>(GET_POSTS_BY_CATEGORY, {
+      categorySlug,
+      first,
+      after: after || null,
+    });
+
+    const firstPost = data.posts.nodes[0];
+    const categoryNode = firstPost?.categories?.nodes.find(
+      (cat) => cat.slug === categorySlug
+    );
+
+    return {
+      posts: data.posts,
+      category: categoryNode
+        ? { name: categoryNode.name, slug: categoryNode.slug }
+        : { name: categorySlug, slug: categorySlug },
+    };
+  } catch (error) {
+    console.error("Error fetching category posts:", error);
+    return null;
   }
 }
 

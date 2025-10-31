@@ -45,10 +45,17 @@ export function LatestTipsAndTricks({ posts }: LatestTipsAndTricksProps) {
                   </div>
                 )}
                 <h3 className={styles.title}>{post.title}</h3>
-                {excerpt && <p className={styles.excerpt}>{excerpt}</p>}
-                <Link href={post.uri} className={styles.button}>
-                  Read More
-                </Link>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {excerpt && <p className={styles.excerpt}>{excerpt}</p>}
+                  <Link href={post.uri} className={styles.button}>
+                    Read More
+                  </Link>
+                </div>
               </article>
             );
           })}
@@ -57,4 +64,3 @@ export function LatestTipsAndTricks({ posts }: LatestTipsAndTricksProps) {
     </section>
   );
 }
-

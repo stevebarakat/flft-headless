@@ -1,0 +1,137 @@
+import Link from "next/link";
+import Image from "next/image";
+import styles from "./CategoryArchive.module.css";
+import type { WpPost, WpCategory, WpPageInfo } from "@/types/wp";
+
+type CategoryArchiveProps = {
+  posts: WpPost[];
+  category: WpCategory | null;
+  pageInfo: WpPageInfo;
+  currentPage?: number;
+};
+
+function stripHtml(html: string | null): string {
+  if (!html) return "";
+  return html.replace(/<[^>]*>/g, "").trim();
+}
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+function formatCategories(categories: CategoryArchiveProps["posts"][0]["categories"]): string {
+  if (!categories?.nodes || categories.nodes.length === 0) return "";
+  return categories.nodes.map((cat) => cat.name).join(", ");
+}
+
+function getCommentText(count: number | null | undefined): string {
+  if (!count || count === 0) return "Leave a comment";
+  if (count === 1) return "1 Comment";
+  return `${count} Comments`;
+}
+
+export function CategoryArchive({
+  posts,
+  category,
+  pageInfo,
+  currentPage = 1,
+}: CategoryArchiveProps) {
+  const categoryName = category?.name || "Tips and Tricks";
+
+  return (
+    <article className={styles.archive}>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>
+            Archive | {categoryName}
+          </h1>
+          <Link href={`/category/${category?.slug || "tips-tricks"}/feed`} className={styles.rssLink}>
+            RSS feed for this section
+          </Link>
+        </header>
+
+        <div className={styles.posts}>
+          {posts.map((post) => {
+            const excerpt = stripHtml(post.excerpt);
+            const categories = formatCategories(post.categories);
+            const commentText = getCommentText(post.commentCount);
+            const authorName = post.author?.node?.name || "";
+
+            return (
+              <article key={post.id} className={styles.post}>
+                <div className={styles.metadata}>
+                  <time className={styles.date} dateTime={post.date}>
+                    {formatDate(post.date)}
+                  </time>
+                  {authorName && (
+                    <div className={styles.author}>{authorName}</div>
+                  )}
+                  {categories && (
+                    <div className={styles.categories}>{categories}</div>
+                  )}
+                  <div className={styles.comments}>{commentText}</div>
+                </div>
+
+                <div className={styles.content}>
+                  <h2 className={styles.postTitle}>
+                    <Link href={post.uri}>{post.title}</Link>
+                  </h2>
+
+                  {post.featuredImage?.node && (
+                    <div className={styles.imageWrapper}>
+                      <Image
+                        src={post.featuredImage.node.sourceUrl}
+                        alt={post.featuredImage.node.altText || post.title}
+                        width={post.featuredImage.node.mediaDetails?.width || 600}
+                        height={post.featuredImage.node.mediaDetails?.height || 400}
+                        className={styles.image}
+                      />
+                    </div>
+                  )}
+
+                  {excerpt && (
+                    <p className={styles.excerpt}>{excerpt}</p>
+                  )}
+
+                  <Link href={post.uri} className={styles.continueLink}>
+                    Continue Reading →
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <nav className={styles.pagination}>
+          <span className={styles.pageNumbers}>
+            <span className={styles.currentPage}>{currentPage}</span>
+            {pageInfo.hasNextPage && (
+              <>
+                {" "}
+                <Link
+                  href={`/category/${category?.slug || "tips-tricks"}?page=${currentPage + 1}`}
+                  className={styles.pageLink}
+                >
+                  {currentPage + 1}
+                </Link>
+                {" "}
+                <Link
+                  href={`/category/${category?.slug || "tips-tricks"}?page=${currentPage + 1}`}
+                  className={styles.nextLink}
+                >
+                  Next →
+                </Link>
+              </>
+            )}
+          </span>
+        </nav>
+      </div>
+    </article>
+  );
+}
+

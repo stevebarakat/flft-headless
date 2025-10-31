@@ -202,3 +202,44 @@ export const GET_LATEST_TIPS_AND_TRICKS = `
   }
 `;
 
+export const GET_POSTS_BY_CATEGORY = `
+  query GetPostsByCategory($categorySlug: String!, $first: Int!, $after: String) {
+    posts(first: $first, after: $after, where: {categoryName: $categorySlug}) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        id
+        title
+        slug
+        uri
+        date
+        excerpt
+        author {
+          node {
+            name
+          }
+        }
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
+        commentCount
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+

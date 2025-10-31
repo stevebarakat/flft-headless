@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { getMenu, getSiteInfo, getSocialLinks } from "@/lib/wp-data";
-import "./globals.css";
+import "@/styles/reset.css";
+import "@/styles/globals.css";
 
 const lato = Lato({
   weight: ["300", "400", "700"],
@@ -30,6 +32,7 @@ export default async function RootLayout({
         <div className="container">
           <Header menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
           <main>{children}</main>
+          <Footer menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
         </div>
       </body>
     </html>
