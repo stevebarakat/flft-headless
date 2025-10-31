@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { WpMenu, WpSiteInfo, WpSocialLink } from "@/types/wp";
+import type { WpMenu, WpSiteInfo, WpSocialLink, WpPost } from "@/types/wp";
 import { SocialLinks } from "@/components/SocialLinks";
 import styles from "./Footer.module.css";
 
@@ -8,9 +8,15 @@ type FooterProps = {
   menu: WpMenu | null;
   siteInfo: WpSiteInfo;
   socialLinks: WpSocialLink[];
+  latestPosts: WpPost[];
 };
 
-export function Footer({ menu, siteInfo, socialLinks }: FooterProps) {
+export function Footer({
+  menu,
+  siteInfo,
+  socialLinks,
+  latestPosts,
+}: FooterProps) {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -32,11 +38,13 @@ export function Footer({ menu, siteInfo, socialLinks }: FooterProps) {
           </div>
 
           <div className={styles.socialColumn}>
+            <h3 className={styles.sectionTitle}>Follow Us</h3>
             <SocialLinks links={socialLinks} />
           </div>
 
           {menu && menu.menuItems.nodes.length > 0 && (
             <nav className={styles.nav}>
+              <h3 className={styles.sectionTitle}>Navigation</h3>
               <ul className={styles.menu}>
                 {menu.menuItems.nodes.map((item) => {
                   const href = item.path || item.url || "#";
@@ -44,6 +52,27 @@ export function Footer({ menu, siteInfo, socialLinks }: FooterProps) {
                     <li key={item.id}>
                       <Link href={href} className={styles.menuLink}>
                         {item.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          )}
+
+          {latestPosts.length > 0 && (
+            <nav className={styles.nav}>
+              <h3 className={styles.sectionTitle}>Latest Tips & Tricks</h3>
+              <ul className={styles.menu}>
+                {latestPosts.slice(0, 3).map((post) => {
+                  const truncatedTitle =
+                    post.title.length > 40
+                      ? post.title.substring(0, 40).trim() + "..."
+                      : post.title;
+                  return (
+                    <li key={post.id}>
+                      <Link href={post.uri} className={styles.menuLink}>
+                        {truncatedTitle}
                       </Link>
                     </li>
                   );

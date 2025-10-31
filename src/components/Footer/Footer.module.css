@@ -52,6 +52,13 @@
   flex: 1;
 }
 
+.sectionTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  margin: 0 0 var(--spacing-md) 0;
+}
+
 .menu {
   display: flex;
   flex-direction: column;

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { getMenu, getSiteInfo, getSocialLinks } from "@/lib/wp-data";
+import { getMenu, getSiteInfo, getSocialLinks, getLatestTipsAndTricks } from "@/lib/wp-data";
 import "@/styles/reset.css";
 import "@/styles/globals.css";
 
@@ -25,6 +25,7 @@ export default async function RootLayout({
   const menu = await getMenu("Main");
   const siteInfo = await getSiteInfo("832");
   const socialLinks = await getSocialLinks();
+  const latestPosts = await getLatestTipsAndTricks();
 
   return (
     <html lang="en" className={lato.variable} data-scroll-behavior="smooth">
@@ -33,7 +34,7 @@ export default async function RootLayout({
           <Header menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
           <main>{children}</main>
         </div>
-        <Footer menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
+        <Footer menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} latestPosts={latestPosts} />
       </body>
     </html>
   );
