@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import { getPageByUri, getPostByUri, getPostBySlug, getCategoryPosts } from "@/lib/wp-data";
 import { Content } from "@/components/Content";
@@ -42,31 +41,20 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
     );
   }
 
-  console.log("🔍 Fetching content for URI:", uri);
-  console.log("🔍 Slug array:", slug);
-
   let pageData = await getPageByUri(uri);
-  console.log("📄 Page data:", pageData ? `Found - Title: ${pageData.title}` : "Not found");
-
   let post: WpPost | null = null;
 
   if (!pageData || !pageData.title || !pageData.content) {
     if (slug.length > 0) {
       const postSlug = slug.length === 1 ? slug[0] : slug.join("/");
-      console.log("🔍 Trying to fetch post by slug:", postSlug);
       post = await getPostBySlug(postSlug);
-      console.log("📝 Post by slug:", post ? `Found - Title: ${post.title}` : "Not found");
 
       if (!post) {
-        console.log("🔍 Trying to fetch post by URI:", uri);
         post = await getPostByUri(uri);
-        console.log("📝 Post by URI:", post ? `Found - Title: ${post.title}` : "Not found");
       }
 
       if (!post && slug.length > 1) {
-        console.log("🔍 Trying last slug segment:", slug[slug.length - 1]);
         post = await getPostBySlug(slug[slug.length - 1]);
-        console.log("📝 Post by last slug:", post ? `Found - Title: ${post.title}` : "Not found");
       }
     } else {
       post = await getPostByUri(uri);
@@ -74,63 +62,65 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
   }
 
   const content = (pageData && pageData.title && pageData.content) ? pageData : post;
-  console.log("✅ Final content:", content ? `Found - Title: ${content.title}` : "Not found");
 
   if (!content) {
-    console.log("❌ Content not found, calling notFound()");
     notFound();
   }
+
+  const formatDate = (dateString: string): string => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const formatCategories = (categories: WpPost["categories"]): string => {
+    if (!categories?.nodes || categories.nodes.length === 0) return "";
+    return categories.nodes.map((cat) => cat.name).join(", ");
+  };
+
+  const getCommentText = (count: number | null | undefined): string => {
+    if (!count || count === 0) return "Leave a comment";
+    if (count === 1) return "1 Comment";
+    return `${count} Comments`;
+  };
 
   return (
     <article className={styles.article}>
       <div className={styles.container}>
-        <h1 className={styles.title}>{content.title}</h1>
-
-        {content.featuredImage?.node && (
-          <div className={styles.featuredImage}>
-            <Image
-              src={content.featuredImage.node.sourceUrl}
-              alt={content.featuredImage.node.altText || content.title}
-              width={content.featuredImage.node.mediaDetails?.width || 1200}
-              height={content.featuredImage.node.mediaDetails?.height || 600}
-              className={styles.image}
-            />
-          </div>
-        )}
-
-        {post && (
-          <div className={styles.postMeta}>
-            {post.date && (
-              <time className={styles.date} dateTime={post.date}>
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-            )}
-            {post.author?.node && (
-              <span className={styles.author}>
-                By {post.author.node.name}
-              </span>
-            )}
-            {post.categories?.nodes && post.categories.nodes.length > 0 && (
-              <div className={styles.categories}>
-                {post.categories.nodes.map((category) => (
-                  <Link
-                    key={category.slug}
-                    href={`/category/${category.slug}`}
-                    className={styles.categoryLink}
-                  >
-                    {category.name}
-                  </Link>
-                ))}
+        {post ? (
+          <div className={styles.post}>
+            <div className={styles.metadata}>
+              {post.date && (
+                <time className={styles.date} dateTime={post.date}>
+                  {formatDate(post.date)}
+                </time>
+              )}
+              {post.author?.node && (
+                <div className={styles.author}>{post.author.node.name}</div>
+              )}
+              {post.categories && formatCategories(post.categories) && (
+                <div className={styles.categories}>
+                  {formatCategories(post.categories)}
+                </div>
+              )}
+              <div className={styles.comments}>
+                {getCommentText(post.commentCount)}
               </div>
-            )}
-          </div>
-        )}
+            </div>
 
-        <Content content={content.content} />
+            <div className={styles.content}>
+              <h1 className={styles.title}>{content.title}</h1>
+              <Content content={content.content} />
+            </div>
+          </div>
+        ) : (
+          <>
+            <h1 className={styles.title}>{content.title}</h1>
+            <Content content={content.content} />
+          </>
+        )}
       </div>
     </article>
   );

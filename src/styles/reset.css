@@ -38,6 +38,7 @@ img,
 picture,
 video,
 canvas,
+iframe,
 svg {
   display: block;
   max-width: 100%;
