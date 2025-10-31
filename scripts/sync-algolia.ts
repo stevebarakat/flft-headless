@@ -29,6 +29,7 @@ type WpPost = {
   uri: string;
   date: string;
   excerpt: string | null;
+  content: string | null;
 };
 
 type WpPage = {
@@ -117,13 +118,17 @@ async function syncToAlgolia() {
     console.log(`\nFound ${posts.length} posts and ${pages.length} pages`);
 
     const records = [
-      ...posts.map((post) => ({
-        objectID: post.id,
-        title: post.title,
-        uri: post.uri,
-        excerpt: stripHtml(post.excerpt),
-        type: "post",
-      })),
+      ...posts.map((post) => {
+        const content = stripHtml(post.content);
+        return {
+          objectID: post.id,
+          title: post.title,
+          uri: post.uri,
+          excerpt: stripHtml(post.excerpt),
+          content: content,
+          type: "post",
+        };
+      }),
       ...pages.map((page) => ({
         objectID: page.id,
         title: page.title,

@@ -231,6 +231,7 @@ export const GET_ALL_POSTS = `
         uri
         date
         excerpt
+        content
         featuredImage {
           node {
             sourceUrl

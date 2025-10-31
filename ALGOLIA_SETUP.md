@@ -44,12 +44,14 @@ WP_GRAPHQL_ENDPOINT=http://localhost:10023/graphql
 - The `ALGOLIA_ADMIN_API_KEY` should NEVER be in `NEXT_PUBLIC_*` variables
 - For production, add these to your hosting platform's environment variables
 
-## Step 5: Configure Algolia Index Settings (Optional but Recommended)
+## Step 5: Configure Algolia Index Settings (Recommended)
 
 1. Go to **Search** → **Indices** → Select your index → **Configuration**
-2. In **Searchable attributes**, add: `title`, `excerpt`
+2. In **Searchable attributes**, add: `title`, `excerpt`, `content` (in order of priority - title first, then excerpt, then content)
 3. In **Attributes for faceting**, you can add `type` if you want to filter by post/page
-4. In **Ranking and sorting**, ensure `title` and `excerpt` are in the searchable attributes
+4. In **Ranking and sorting**, ensure the attributes are prioritized: `title` (highest), `excerpt`, then `content`
+
+**Note**: The order in searchable attributes matters - results matching in `title` will rank higher than matches in `content`.
 
 ## Step 6: Sync WordPress Content to Algolia
 
