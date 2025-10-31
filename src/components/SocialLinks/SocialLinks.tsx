@@ -25,8 +25,8 @@ export function SocialLinks({ links }: SocialLinksProps) {
           <Image
             src={link.iconUrl}
             alt={link.platform}
-            width={24}
-            height={24}
+            width={40}
+            height={40}
             className={styles.icon}
           />
         </a>
