@@ -13,17 +13,17 @@ if (!defined('ABSPATH')) {
 function register_contact_submission_post_type()
 {
   $labels = array(
-    'name' => 'Contact Submissions',
-    'singular_name' => 'Contact Submission',
-    'menu_name' => 'Contact Forms',
+    'name' => 'Received Emails',
+    'singular_name' => 'Received Email',
+    'menu_name' => 'Received Emails',
     'add_new' => 'Add New',
-    'add_new_item' => 'Add New Submission',
-    'edit_item' => 'View Submission',
-    'new_item' => 'New Submission',
-    'view_item' => 'View Submission',
-    'search_items' => 'Search Submissions',
-    'not_found' => 'No submissions found',
-    'not_found_in_trash' => 'No submissions found in Trash',
+    'add_new_item' => 'Add New Email',
+    'edit_item' => 'View Email',
+    'new_item' => 'New Email',
+    'view_item' => 'View Email',
+    'search_items' => 'Search Emails',
+    'not_found' => 'No emails found',
+    'not_found_in_trash' => 'No emails found in Trash',
   );
 
   $args = array(
@@ -36,6 +36,10 @@ function register_contact_submission_post_type()
     'query_var' => true,
     'rewrite' => false,
     'capability_type' => 'post',
+    'capabilities' => array(
+      'create_posts' => false,
+    ),
+    'map_meta_cap' => true,
     'has_archive' => false,
     'hierarchical' => false,
     'menu_position' => null,
@@ -47,11 +51,33 @@ function register_contact_submission_post_type()
 }
 add_action('init', 'register_contact_submission_post_type');
 
+function hide_add_new_for_contact_submissions()
+{
+  global $submenu;
+  if (isset($submenu['edit.php?post_type=contact_submission'])) {
+    foreach ($submenu['edit.php?post_type=contact_submission'] as $key => $item) {
+      if ($item[2] === 'post-new.php?post_type=contact_submission') {
+        unset($submenu['edit.php?post_type=contact_submission'][$key]);
+      }
+    }
+  }
+}
+add_action('admin_menu', 'hide_add_new_for_contact_submissions');
+
+function remove_add_new_button_for_contact_submissions()
+{
+  global $post_type;
+  if ($post_type === 'contact_submission') {
+    echo '<style>.page-title-action { display: none !important; }</style>';
+  }
+}
+add_action('admin_head', 'remove_add_new_button_for_contact_submissions');
+
 function add_contact_submission_meta_boxes()
 {
   add_meta_box(
     'contact_submission_details',
-    'Submission Details',
+    'Email Details',
     'display_contact_submission_details',
     'contact_submission',
     'normal',
