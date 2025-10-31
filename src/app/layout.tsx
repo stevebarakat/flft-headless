@@ -27,8 +27,10 @@ export default async function RootLayout({
   return (
     <html lang="en" className={lato.variable}>
       <body>
-        <Header menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
-        <main>{children}</main>
+        <div className="container">
+          <Header menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
+          <main>{children}</main>
+        </div>
       </body>
     </html>
   );
