@@ -99,49 +99,6 @@
   text-decoration: underline;
 }
 
-.pagination {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid hsl(0, 0%, 90%);
-  text-align: left;
-}
-
-.pageNumbers {
-  font-size: 0.875rem;
-  color: hsl(0, 0%, 60%);
-}
-
-.currentPage {
-  font-weight: 700;
-}
-
-.pageLink {
-  color: hsl(0, 0%, 60%);
-  text-decoration: none;
-}
-
-.pageLink:hover {
-  color: hsl(210, 100%, 40%);
-}
-
-.prevLink {
-  color: hsl(0, 0%, 60%);
-  text-decoration: none;
-}
-
-.prevLink:hover {
-  color: hsl(210, 100%, 40%);
-}
-
-.nextLink {
-  color: hsl(0, 0%, 60%);
-  text-decoration: none;
-}
-
-.nextLink:hover {
-  color: hsl(210, 100%, 40%);
-}
-
 @media (max-width: 768px) {
   .archive {
     padding: 2rem 0 3rem;

@@ -1,0 +1,46 @@
+.pagination {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid hsl(0, 0%, 90%);
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+
+.pageNumbers {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: hsl(0, 0%, 50%);
+}
+
+.currentPage {
+  font-weight: 700;
+}
+
+.pageLink {
+  color: hsl(0, 0%, 50%);
+  text-decoration: none;
+  padding: 0 0.5rem;
+}
+
+.pageLink:hover {
+  color: hsl(210, 100%, 40%);
+}
+
+.prevLink {
+  color: hsl(0, 0%, 50%);
+  text-decoration: none;
+}
+
+.prevLink:hover {
+  color: hsl(210, 100%, 40%);
+}
+
+.nextLink {
+  color: hsl(0, 0%, 50%);
+  text-decoration: none;
+}
+
+.nextLink:hover {
+  color: hsl(210, 100%, 40%);
+}

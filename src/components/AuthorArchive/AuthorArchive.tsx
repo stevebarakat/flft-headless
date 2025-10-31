@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./AuthorArchive.module.css";
+import { Pagination } from "@/components/Pagination";
 import type { WpPost, WpAuthor, WpPageInfo } from "@/types/wp";
 import { stripHtml } from "@/lib/utils";
 
@@ -113,59 +114,13 @@ export function AuthorArchive({
           })}
         </div>
 
-        <nav className={styles.pagination}>
-          <span className={styles.pageNumbers}>
-            {currentPage > 1 && (
-              <>
-                <Link
-                  href={`/author/${author?.slug || "unknown"}?page=${currentPage - 1}`}
-                  className={styles.prevLink}
-                >
-                  ← Prev
-                </Link>
-                {" "}
-              </>
-            )}
-            {totalCount && (() => {
-              const totalPages = Math.ceil(totalCount / postsPerPage);
-              const pages = [];
-              for (let i = 1; i <= totalPages; i++) {
-                if (i > 1) {
-                  pages.push(" ");
-                }
-                if (i === currentPage) {
-                  pages.push(
-                    <span key={i} className={styles.currentPage}>
-                      {i}
-                    </span>
-                  );
-                } else {
-                  pages.push(
-                    <Link
-                      key={i}
-                      href={`/author/${author?.slug || "unknown"}?page=${i}`}
-                      className={styles.pageLink}
-                    >
-                      {i}
-                    </Link>
-                  );
-                }
-              }
-              return pages;
-            })()}
-            {(!totalCount || (pageInfo.hasNextPage && currentPage < Math.ceil((totalCount || 0) / postsPerPage))) && (
-              <>
-                {" "}
-                <Link
-                  href={`/author/${author?.slug || "unknown"}?page=${currentPage + 1}`}
-                  className={styles.nextLink}
-                >
-                  Next →
-                </Link>
-              </>
-            )}
-          </span>
-        </nav>
+        <Pagination
+          currentPage={currentPage}
+          totalCount={totalCount}
+          postsPerPage={postsPerPage}
+          pageInfo={pageInfo}
+          getPageUrl={(page) => `/author/${author?.slug || "unknown"}?page=${page}`}
+        />
       </div>
     </article>
   );

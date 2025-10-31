@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./CategoryArchive.module.css";
+import { Pagination } from "@/components/Pagination";
 import type { WpPost, WpCategory, WpPageInfo } from "@/types/wp";
 import { stripHtml } from "@/lib/utils";
 
@@ -116,59 +117,13 @@ export function CategoryArchive({
           })}
         </div>
 
-        <nav className={styles.pagination}>
-          <span className={styles.pageNumbers}>
-            {currentPage > 1 && (
-              <>
-                <Link
-                  href={`/category/${category?.slug || "tips-tricks"}?page=${currentPage - 1}`}
-                  className={styles.prevLink}
-                >
-                  ← Prev
-                </Link>
-                {" "}
-              </>
-            )}
-            {totalCount && (() => {
-              const totalPages = Math.ceil(totalCount / postsPerPage);
-              const pages = [];
-              for (let i = 1; i <= totalPages; i++) {
-                if (i > 1) {
-                  pages.push(" ");
-                }
-                if (i === currentPage) {
-                  pages.push(
-                    <span key={i} className={styles.currentPage}>
-                      {i}
-                    </span>
-                  );
-                } else {
-                  pages.push(
-                    <Link
-                      key={i}
-                      href={`/category/${category?.slug || "tips-tricks"}?page=${i}`}
-                      className={styles.pageLink}
-                    >
-                      {i}
-                    </Link>
-                  );
-                }
-              }
-              return pages;
-            })()}
-            {(!totalCount || (pageInfo.hasNextPage && currentPage < Math.ceil((totalCount || 0) / postsPerPage))) && (
-              <>
-                {" "}
-                <Link
-                  href={`/category/${category?.slug || "tips-tricks"}?page=${currentPage + 1}`}
-                  className={styles.nextLink}
-                >
-                  Next →
-                </Link>
-              </>
-            )}
-          </span>
-        </nav>
+        <Pagination
+          currentPage={currentPage}
+          totalCount={totalCount}
+          postsPerPage={postsPerPage}
+          pageInfo={pageInfo}
+          getPageUrl={(page) => `/category/${category?.slug || "tips-tricks"}?page=${page}`}
+        />
       </div>
     </article>
   );
