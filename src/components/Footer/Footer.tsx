@@ -54,6 +54,17 @@ export function Footer({ menu, siteInfo, socialLinks }: FooterProps) {
           <p className={styles.copyright}>
             © {new Date().getFullYear()} {siteInfo.title}. All rights reserved.
           </p>
+          <p className={styles.copyright}>
+            Headless WordPress site by{" "}
+            <a
+              className={styles.menuLink}
+              href="https://www.stevebarakat.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Steve Barakat
+            </a>
+          </p>
         </div>
       </div>
     </footer>
