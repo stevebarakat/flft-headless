@@ -95,6 +95,19 @@ export type WpCategoryArchive = {
   category: WpCategory | null;
 };
 
+export type WpAuthor = {
+  name: string;
+  slug: string;
+};
+
+export type WpAuthorArchive = {
+  posts: {
+    pageInfo: WpPageInfo;
+    nodes: WpPost[];
+  };
+  author: WpAuthor | null;
+};
+
 export type WpSiteLogo = {
   url: string;
   altText?: string;

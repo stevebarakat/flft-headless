@@ -155,3 +155,61 @@ main {
   transform: translateY(-1px);
   box-shadow: 0 4px 8px hsl(0, 0%, 0%, 0.2);
 }
+
+figure {
+  background-color: #fafafa;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  width: 300px;
+  margin: 0;
+  padding: 0.5rem;
+  display: block;
+  overflow: hidden;
+  box-shadow: 0 2px 8px #0000000d;
+}
+
+.metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  color: hsl(0, 0%, 60%);
+  font-family: var(--font-body);
+  line-height: 1.5rem;
+  white-space: nowrap;
+  border-right: 1px solid hsl(0, 0%, 90%);
+  height: fit-content;
+  padding: 1rem 1rem 2rem 0;
+  max-width: 200px;
+}
+
+.metadata .author,
+.metadata .categories,
+.metadata .comments {
+  color: hsl(0, 0%, 30%);
+  max-width: 130px;
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.metadata .author {
+  font-weight: 400;
+}
+
+.metadata a {
+  color: hsl(0, 0%, 30%);
+  text-decoration: none;
+}
+
+.metadata a:hover {
+  color: hsl(210, 100%, 40%);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .metadata {
+    order: 2;
+  }
+}

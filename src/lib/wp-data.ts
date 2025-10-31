@@ -15,10 +15,11 @@ import {
   GET_LATEST_TIPS_AND_TRICKS,
   GET_POSTS_BY_CATEGORY,
   GET_CATEGORY_POSTS_FOR_RSS,
+  GET_POSTS_BY_AUTHOR,
   SUBMIT_CONTACT_FORM,
   CREATE_COMMENT,
 } from "./graphql/queries";
-import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage, WpCallToAction, WpCategoryArchive } from "@/types/wp";
+import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage, WpCallToAction, WpCategoryArchive, WpAuthorArchive } from "@/types/wp";
 
 export async function getMenu(name: string = "Main"): Promise<WpMenu | null> {
   try {
@@ -320,6 +321,40 @@ export async function getCategoryPostsForRSS(categorySlug: string) {
     };
   } catch (error) {
     console.error("Error fetching category posts for RSS:", error);
+    return null;
+  }
+}
+
+export async function getAuthorPosts(
+  authorName: string,
+  first: number = 10,
+  after?: string | null
+): Promise<WpAuthorArchive | null> {
+  try {
+    const data = await wpClient.request<{
+      posts: {
+        pageInfo: WpAuthorArchive["posts"]["pageInfo"];
+        nodes: WpAuthorArchive["posts"]["nodes"];
+      };
+    }>(GET_POSTS_BY_AUTHOR, {
+      authorName,
+      first,
+      after: after || null,
+    });
+
+    const firstPost = data.posts.nodes[0];
+    const authorNameFromPost = firstPost?.author?.node?.name;
+
+    const authorSlug = authorName.toLowerCase().replace(/\s+/g, "-");
+
+    return {
+      posts: data.posts,
+      author: authorNameFromPost
+        ? { name: authorNameFromPost, slug: authorSlug }
+        : { name: authorName, slug: authorSlug },
+    };
+  } catch (error) {
+    console.error("Error fetching author posts:", error);
     return null;
   }
 }

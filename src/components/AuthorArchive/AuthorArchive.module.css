@@ -22,16 +22,6 @@
   margin: 0;
 }
 
-.rssLink {
-  font-size: 0.875rem;
-  color: hsl(210, 100%, 40%);
-  text-decoration: none;
-}
-
-.rssLink:hover {
-  text-decoration: underline;
-}
-
 .posts {
   display: flex;
   flex-direction: column;
@@ -49,7 +39,6 @@
 .post:last-of-type {
   border-bottom: none;
 }
-
 
 .content {
   display: flex;
@@ -164,3 +153,4 @@
     order: 1;
   }
 }
+

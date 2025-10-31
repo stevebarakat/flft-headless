@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./CategoryArchive.module.css";
-import type { WpPost, WpCategory, WpPageInfo } from "@/types/wp";
+import styles from "./AuthorArchive.module.css";
+import type { WpPost, WpAuthor, WpPageInfo } from "@/types/wp";
 
-type CategoryArchiveProps = {
+type AuthorArchiveProps = {
   posts: WpPost[];
-  category: WpCategory | null;
+  author: WpAuthor | null;
   pageInfo: WpPageInfo;
   currentPage?: number;
 };
@@ -34,24 +34,21 @@ function getCommentText(count: number | null | undefined): string {
   return `${count} Comments`;
 }
 
-export function CategoryArchive({
+export function AuthorArchive({
   posts,
-  category,
+  author,
   pageInfo,
   currentPage = 1,
-}: CategoryArchiveProps) {
-  const categoryName = category?.name || "Tips and Tricks";
+}: AuthorArchiveProps) {
+  const authorName = author?.name || "Unknown Author";
 
   return (
     <article className={styles.archive}>
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>
-            Archive | {categoryName}
+            Archive | {authorName}
           </h1>
-          <Link href={`/category/${category?.slug || "tips-tricks"}/feed`} className={styles.rssLink}>
-            RSS feed for this section
-          </Link>
         </header>
 
         <div className={styles.posts}>
@@ -123,14 +120,14 @@ export function CategoryArchive({
               <>
                 {" "}
                 <Link
-                  href={`/category/${category?.slug || "tips-tricks"}?page=${currentPage + 1}`}
+                  href={`/author/${author?.slug || "unknown"}?page=${currentPage + 1}`}
                   className={styles.pageLink}
                 >
                   {currentPage + 1}
                 </Link>
                 {" "}
                 <Link
-                  href={`/category/${category?.slug || "tips-tricks"}?page=${currentPage + 1}`}
+                  href={`/author/${author?.slug || "unknown"}?page=${currentPage + 1}`}
                   className={styles.nextLink}
                 >
                   Next →

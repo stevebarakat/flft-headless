@@ -27,7 +27,7 @@ export default async function RootLayout({
   const socialLinks = await getSocialLinks();
 
   return (
-    <html lang="en" className={lato.variable}>
+    <html lang="en" className={lato.variable} data-scroll-behavior="smooth">
       <body>
         <div className="container">
           <Header menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />

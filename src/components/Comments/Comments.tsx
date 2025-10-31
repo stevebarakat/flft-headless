@@ -80,7 +80,7 @@ export function Comments({ postId, comments: initialComments }: CommentsProps) {
   }
 
   return (
-    <div className={styles.comments}>
+    <div id="comments" className={styles.comments}>
       <h2 className={styles.heading}>Comments</h2>
 
       {comments.length > 0 && (

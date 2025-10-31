@@ -414,6 +414,47 @@ export const GET_CATEGORY_POSTS_FOR_RSS = `
   }
 `;
 
+export const GET_POSTS_BY_AUTHOR = `
+  query GetPostsByAuthor($authorName: String!, $first: Int!, $after: String) {
+    posts(first: $first, after: $after, where: {authorName: $authorName}) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        id
+        title
+        slug
+        uri
+        date
+        excerpt
+        author {
+          node {
+            name
+          }
+        }
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
+        commentCount
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const SUBMIT_CONTACT_FORM = `
   mutation SubmitContactForm($name: String!, $email: String!, $subject: String!, $message: String!) {
     submitContactForm(input: {

@@ -5,12 +5,14 @@ import {
   getPostByUri,
   getPostBySlug,
   getCategoryPosts,
+  getAuthorPosts,
   getSliderImages,
   getCallToAction,
   getLatestTipsAndTricks,
 } from "@/lib/wp-data";
 import { Content } from "@/components/Content";
 import { CategoryArchive } from "@/components/CategoryArchive";
+import { AuthorArchive } from "@/components/AuthorArchive";
 import { HeroSlider } from "@/components/HeroSlider";
 import { CallToAction } from "@/components/CallToAction";
 import { LatestTipsAndTricks } from "@/components/LatestTipsAndTricks";
@@ -76,6 +78,31 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
     );
   }
 
+  if (slug.length === 2 && slug[0] === "author") {
+    const authorSlug = slug[1];
+    const currentPage = page ? parseInt(page, 10) : 1;
+
+    const authorName = authorSlug
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    const authorData = await getAuthorPosts(authorName, 4);
+
+    if (!authorData || !authorData.author || authorData.posts.nodes.length === 0) {
+      notFound();
+    }
+
+    return (
+      <AuthorArchive
+        posts={authorData.posts.nodes}
+        author={authorData.author}
+        pageInfo={authorData.posts.pageInfo}
+        currentPage={currentPage}
+      />
+    );
+  }
+
   let pageData = await getPageByUri(uri);
   let post: WpPost | null = null;
 
@@ -111,9 +138,8 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
     });
   };
 
-  const formatCategories = (categories: WpPost["categories"]): string => {
-    if (!categories?.nodes || categories.nodes.length === 0) return "";
-    return categories.nodes.map((cat) => cat.name).join(", ");
+  const getAuthorSlug = (authorName: string): string => {
+    return authorName.toLowerCase().replace(/\s+/g, "-");
   };
 
   const getCommentText = (count: number | null | undefined): string => {
@@ -127,23 +153,30 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
       <div className={styles.container}>
         {post ? (
           <div className={styles.post}>
-            <div className={styles.metadata}>
+            <div className="metadata">
               {post.date && (
-                <time className={styles.date} dateTime={post.date}>
+                <time className="date" dateTime={post.date}>
                   {formatDate(post.date)}
                 </time>
               )}
               {post.author?.node && (
-                <div className={styles.author}>{post.author.node.name}</div>
+                <Link href={`/author/${getAuthorSlug(post.author.node.name)}`} className="author">
+                  {post.author.node.name}
+                </Link>
               )}
-              {post.categories && formatCategories(post.categories) && (
-                <div className={styles.categories}>
-                  {formatCategories(post.categories)}
+              {post.categories?.nodes && post.categories.nodes.length > 0 && (
+                <div className="categories">
+                  {post.categories.nodes.map((cat, index) => (
+                    <span key={cat.slug}>
+                      {index > 0 && ", "}
+                      <Link href={`/category/${cat.slug}`}>{cat.name}</Link>
+                    </span>
+                  ))}
                 </div>
               )}
-              <div className={styles.comments}>
+              <Link href={`${post.uri}#comments`} className="comments">
                 {getCommentText(post.commentCount)}
-              </div>
+              </Link>
             </div>
 
             <div className={styles.content}>
