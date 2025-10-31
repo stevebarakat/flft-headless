@@ -14,6 +14,7 @@ import {
   GET_CALL_TO_ACTION,
   GET_LATEST_TIPS_AND_TRICKS,
   GET_POSTS_BY_CATEGORY,
+  GET_CATEGORY_POSTS_FOR_RSS,
 } from "./graphql/queries";
 import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage, WpCallToAction, WpCategoryArchive } from "@/types/wp";
 
@@ -291,6 +292,32 @@ export async function getCategoryPosts(
     };
   } catch (error) {
     console.error("Error fetching category posts:", error);
+    return null;
+  }
+}
+
+export async function getCategoryPostsForRSS(categorySlug: string) {
+  try {
+    const data = await wpClient.request<{
+      posts: { nodes: WpPost[] };
+    }>(GET_CATEGORY_POSTS_FOR_RSS, {
+      categorySlug,
+      first: 50,
+    });
+
+    const firstPost = data.posts.nodes[0];
+    const categoryNode = firstPost?.categories?.nodes.find(
+      (cat) => cat.slug === categorySlug
+    );
+
+    return {
+      posts: data.posts.nodes,
+      category: categoryNode
+        ? { name: categoryNode.name, slug: categoryNode.slug }
+        : { name: categorySlug, slug: categorySlug },
+    };
+  } catch (error) {
+    console.error("Error fetching category posts for RSS:", error);
     return null;
   }
 }

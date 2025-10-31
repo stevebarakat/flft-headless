@@ -324,3 +324,36 @@ export const GET_POSTS_BY_CATEGORY = `
   }
 `;
 
+export const GET_CATEGORY_POSTS_FOR_RSS = `
+  query GetCategoryPostsForRSS($categorySlug: String!, $first: Int!) {
+    posts(first: $first, where: {categoryName: $categorySlug}) {
+      nodes {
+        id
+        title
+        slug
+        uri
+        date
+        content
+        excerpt
+        author {
+          node {
+            name
+          }
+        }
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+      }
+    }
+  }
+`;
+

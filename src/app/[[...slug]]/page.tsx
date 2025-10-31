@@ -1,8 +1,19 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getPageByUri, getPostByUri, getPostBySlug, getCategoryPosts } from "@/lib/wp-data";
+import {
+  getPageByUri,
+  getPostByUri,
+  getPostBySlug,
+  getCategoryPosts,
+  getSliderImages,
+  getCallToAction,
+  getLatestTipsAndTricks,
+} from "@/lib/wp-data";
 import { Content } from "@/components/Content";
 import { CategoryArchive } from "@/components/CategoryArchive";
+import { HeroSlider } from "@/components/HeroSlider";
+import { CallToAction } from "@/components/CallToAction";
+import { LatestTipsAndTricks } from "@/components/LatestTipsAndTricks";
 import type { WpPost } from "@/types/wp";
 import styles from "./page.module.css";
 
@@ -17,7 +28,30 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
   const { page } = await searchParams;
 
   if (!slug || slug.length === 0) {
-    notFound();
+    const homepage = await getPageByUri("/");
+    const sliderImages = await getSliderImages();
+    const callToAction = await getCallToAction();
+    const tipsAndTricks = await getLatestTipsAndTricks();
+
+    if (!homepage) {
+      notFound();
+    }
+
+    return (
+      <>
+        <HeroSlider images={sliderImages} />
+        {callToAction && <CallToAction data={callToAction} />}
+        {tipsAndTricks.length > 0 && (
+          <LatestTipsAndTricks posts={tipsAndTricks} />
+        )}
+        <article className={styles.article}>
+          <div className={styles.container}>
+            <h1 className="visuallyHidden">{homepage.title}</h1>
+            <Content content={homepage.content} />
+          </div>
+        </article>
+      </>
+    );
   }
 
   const uri = `/${slug.join("/")}/`;
@@ -61,7 +95,8 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
     }
   }
 
-  const content = (pageData && pageData.title && pageData.content) ? pageData : post;
+  const content =
+    pageData && pageData.title && pageData.content ? pageData : post;
 
   if (!content) {
     notFound();
