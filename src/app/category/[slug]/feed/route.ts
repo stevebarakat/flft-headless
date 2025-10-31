@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getCategoryPostsForRSS, getSiteInfo } from "@/lib/wp-data";
+import { stripHtml } from "@/lib/utils";
 
 type RouteParams = {
   params: Promise<{ slug: string }>;
@@ -17,11 +18,6 @@ function escapeXml(unsafe: string | null): string {
 
 function formatRssDate(dateString: string): string {
   return new Date(dateString).toUTCString();
-}
-
-function stripHtml(html: string | null): string {
-  if (!html) return "";
-  return html.replace(/<[^>]*>/g, "").trim();
 }
 
 export async function GET(_request: Request, { params }: RouteParams) {

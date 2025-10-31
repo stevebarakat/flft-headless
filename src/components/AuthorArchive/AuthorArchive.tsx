@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./AuthorArchive.module.css";
 import type { WpPost, WpAuthor, WpPageInfo } from "@/types/wp";
+import { stripHtml } from "@/lib/utils";
 
 type AuthorArchiveProps = {
   posts: WpPost[];
@@ -9,11 +10,6 @@ type AuthorArchiveProps = {
   pageInfo: WpPageInfo;
   currentPage?: number;
 };
-
-function stripHtml(html: string | null): string {
-  if (!html) return "";
-  return html.replace(/<[^>]*>/g, "").trim();
-}
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);

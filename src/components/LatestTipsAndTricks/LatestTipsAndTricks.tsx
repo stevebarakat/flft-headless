@@ -2,15 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./LatestTipsAndTricks.module.css";
 import type { WpPost } from "@/types/wp";
+import { stripHtml } from "@/lib/utils";
 
 type LatestTipsAndTricksProps = {
   posts: WpPost[];
 };
-
-function stripHtml(html: string | null): string {
-  if (!html) return "";
-  return html.replace(/<[^>]*>/g, "").trim();
-}
 
 function truncateText(text: string, maxLength: number = 100): string {
   if (text.length <= maxLength) return text;

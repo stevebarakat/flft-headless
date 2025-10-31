@@ -3,6 +3,7 @@ import { resolve } from "path";
 import { algoliasearch } from "algoliasearch";
 import { GraphQLClient } from "graphql-request";
 import { GET_ALL_POSTS, GET_ALL_PAGES } from "../src/lib/graphql/queries";
+import { stripHtml } from "../src/lib/utils";
 
 config({ path: resolve(__dirname, "../env.local") });
 
@@ -48,11 +49,6 @@ type PostsResponse = {
     nodes: WpPost[];
   };
 };
-
-function stripHtml(html: string | null): string {
-  if (!html) return "";
-  return html.replace(/<[^>]*>/g, "").trim();
-}
 
 async function fetchAllPosts(): Promise<WpPost[]> {
   const allPosts: WpPost[] = [];

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./CategoryArchive.module.css";
 import type { WpPost, WpCategory, WpPageInfo } from "@/types/wp";
+import { stripHtml } from "@/lib/utils";
 
 type CategoryArchiveProps = {
   posts: WpPost[];
@@ -9,11 +10,6 @@ type CategoryArchiveProps = {
   pageInfo: WpPageInfo;
   currentPage?: number;
 };
-
-function stripHtml(html: string | null): string {
-  if (!html) return "";
-  return html.replace(/<[^>]*>/g, "").trim();
-}
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
