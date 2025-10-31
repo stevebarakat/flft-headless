@@ -1,5 +1,5 @@
 .archive {
-  padding: var(--spacing-4xl) 0 var(--spacing-5xl);
+  padding: var(--spacing-md) 0 var(--spacing-2xl);
 }
 
 .container {
@@ -16,7 +16,7 @@
 }
 
 .title {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-tertiary);
   margin: 0;
@@ -49,7 +49,6 @@
 .post:last-of-type {
   border-bottom: none;
 }
-
 
 .content {
   display: flex;

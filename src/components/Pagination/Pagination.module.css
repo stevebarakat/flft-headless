@@ -18,7 +18,7 @@
 }
 
 .pageLink {
-  color: var(--color-text-light);
+  color: var(--color-text-primary);
   text-decoration: none;
   padding: 0 var(--spacing-sm);
 }
@@ -28,7 +28,7 @@
 }
 
 .prevLink {
-  color: var(--color-text-light);
+  color: var(--color-text-primary);
   text-decoration: none;
 }
 
@@ -37,10 +37,29 @@
 }
 
 .nextLink {
-  color: var(--color-text-light);
+  color: var(--color-text-primary);
   text-decoration: none;
 }
 
 .nextLink:hover {
   color: var(--color-link-secondary);
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    margin-top: var(--spacing-2xl);
+    padding-top: var(--spacing-xl);
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .pageNumbers {
+    font-size: var(--font-size-base);
+  }
+
+  .pageLink,
+  .prevLink,
+  .nextLink {
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
 }

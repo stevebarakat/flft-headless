@@ -21,6 +21,18 @@ export const GET_MENU_BY_NAME = `
   }
 `;
 
+export const GET_ALL_MENUS = `
+  query GetAllMenus {
+    menus {
+      nodes {
+        id
+        name
+        slug
+      }
+    }
+  }
+`;
+
 export const GET_PAGE_BY_URI = `
   query GetPageByUri($uri: String!) {
     nodeByUri(uri: $uri) {

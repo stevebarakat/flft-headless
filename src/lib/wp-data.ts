@@ -1,6 +1,7 @@
 import { wpClient } from "./wp-client";
 import {
   GET_MENU_BY_NAME,
+  GET_ALL_MENUS,
   GET_PAGE_BY_URI,
   GET_POST_BY_URI,
   GET_POST_BY_SLUG,

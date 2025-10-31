@@ -34,6 +34,9 @@ export function Footer({
               ) : (
                 <span className={styles.logoText}>{siteInfo.title}</span>
               )}
+              {siteInfo.tagline && (
+                <span className={styles.tagline}>{siteInfo.tagline}</span>
+              )}
             </Link>
           </div>
 
@@ -45,24 +48,6 @@ export function Footer({
               showText={true}
             />
           </div>
-
-          {menu && menu.menuItems.nodes.length > 0 && (
-            <nav className={styles.nav}>
-              <h3 className={styles.sectionTitle}>Navigation</h3>
-              <ul className={styles.menu}>
-                {menu.menuItems.nodes.map((item) => {
-                  const href = item.path || item.url || "#";
-                  return (
-                    <li key={item.id}>
-                      <Link href={href} className={styles.menuLink}>
-                        {item.label}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </nav>
-          )}
 
           {latestPosts.length > 0 && (
             <nav className={styles.nav}>
@@ -77,6 +62,24 @@ export function Footer({
                     <li key={post.id}>
                       <Link href={post.uri} className={styles.menuLink}>
                         {truncatedTitle}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          )}
+
+          {menu && menu.menuItems.nodes.length > 0 && (
+            <nav className={styles.nav}>
+              <h3 className={styles.sectionTitle}>Legal</h3>
+              <ul className={styles.menu}>
+                {menu.menuItems.nodes.map((item) => {
+                  const href = item.path || item.url || "#";
+                  return (
+                    <li key={item.id}>
+                      <Link href={href} className={styles.menuLink}>
+                        {item.label}
                       </Link>
                     </li>
                   );

@@ -9,50 +9,5 @@ if (!appId || !apiKey) {
   );
 }
 
-const client = liteClient(appId, apiKey);
-
-export const searchClient = {
-  search: (requests: Array<{ indexName: string; params: any }>) => {
-    return client
-      .search({
-        requests: requests.map((request) => ({
-          indexName: request.indexName,
-          query: request.params.query || "",
-          ...request.params,
-        })),
-      })
-      .then((response) => {
-        if (!response || !response.results) {
-          console.error("Unexpected Algolia response:", response);
-          return {
-            results: requests.map(() => ({
-              hits: [],
-              nbHits: 0,
-              page: 0,
-              nbPages: 0,
-              hitsPerPage: 20,
-              processingTimeMS: 0,
-            })),
-          };
-        }
-        return {
-          results: response.results,
-        };
-      })
-      .catch((error) => {
-        console.error("Algolia search error:", error);
-        return {
-          results: requests.map(() => ({
-            hits: [],
-            nbHits: 0,
-            page: 0,
-            nbPages: 0,
-            hitsPerPage: 20,
-            processingTimeMS: 0,
-            error: error.message,
-          })),
-        };
-      });
-  },
-};
+export const searchClient = liteClient(appId, apiKey);
 

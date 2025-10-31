@@ -23,6 +23,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const menu = await getMenu("Main");
+  const footerMenu = await getMenu("Footer Menu");
   const siteInfo = await getSiteInfo("832");
   const socialLinks = await getSocialLinks();
   const latestPosts = await getLatestTipsAndTricks();
@@ -34,7 +35,7 @@ export default async function RootLayout({
           <Header menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
           <main>{children}</main>
         </div>
-        <Footer menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} latestPosts={latestPosts} />
+        <Footer menu={footerMenu} siteInfo={siteInfo} socialLinks={socialLinks} latestPosts={latestPosts} />
       </body>
     </html>
   );

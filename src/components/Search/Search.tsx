@@ -8,6 +8,7 @@ import {
   SearchBox,
   useInstantSearch,
   useHits,
+  useSearchBox,
 } from "react-instantsearch";
 import { searchClient } from "./searchClient";
 import styles from "./Search.module.css";
@@ -22,12 +23,8 @@ type Hit = {
 function HitComponent({ hit }: { hit: Hit }) {
   return (
     <Link href={hit.uri} className={styles.hit}>
-      <div className={styles.hitContent}>
-        <h3 className={styles.hitTitle}>{hit.title}</h3>
-        {hit.excerpt && (
-          <p className={styles.hitExcerpt}>{hit.excerpt}</p>
-        )}
-      </div>
+      <h3 className={styles.hitTitle}>{hit.title}</h3>
+      {hit.excerpt && <p className={styles.hitExcerpt}>{hit.excerpt}</p>}
     </Link>
   );
 }
@@ -35,7 +32,7 @@ function HitComponent({ hit }: { hit: Hit }) {
 function Results() {
   const { hits } = useHits<Hit>();
   const instantSearch = useInstantSearch();
-  const query = instantSearch.uiState?.[process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "posts"]?.query || instantSearch.query || "";
+  const { query } = useSearchBox();
   const status = instantSearch.status;
 
   if (!query || query.trim().length === 0) {
@@ -61,7 +58,7 @@ function Results() {
   return (
     <ul className={styles.hitsList}>
       {hits.map((hit) => (
-        <li key={hit.objectID} className={styles.hitItem}>
+        <li key={hit.objectID}>
           <HitComponent hit={hit} />
         </li>
       ))}
@@ -111,9 +108,8 @@ function SearchContent({
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
 }) {
-  const instantSearch = useInstantSearch();
   const { hits } = useHits<Hit>();
-  const query = instantSearch.uiState?.[process.env.NEXT_PUBLIC_ALGOLIA_INDEX_NAME || "posts"]?.query || instantSearch.query || "";
+  const { query } = useSearchBox();
 
   useEffect(() => {
     if (query && query.trim().length > 0 && hits.length > 0) {
@@ -130,8 +126,8 @@ function SearchContent({
         <SearchBox
           placeholder="Search..."
           classNames={{
-            root: styles.searchBox,
-            form: styles.searchForm,
+            root: styles.searchBoxRoot,
+            form: styles.searchBoxForm,
             input: styles.searchInput,
             submit: styles.searchSubmit,
             reset: styles.searchReset,
@@ -147,4 +143,3 @@ function SearchContent({
     </div>
   );
 }
-

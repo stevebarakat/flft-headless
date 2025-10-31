@@ -173,3 +173,124 @@
 .submenuLink:hover {
   background-color: var(--color-border-darker);
 }
+
+.hamburger {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    position: relative;
+  }
+
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: var(--spacing-xs);
+    right: var(--spacing-xl);
+    width: 100%;
+    height: 44px;
+    background-color: var(--color-med-blue);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--color-white);
+    cursor: pointer;
+    z-index: var(--z-dropdown);
+    transition: background-color var(--transition-normal);
+  }
+
+  .hamburger:hover {
+    background-color: var(--color-dark-blue);
+  }
+
+  .header {
+    padding-top: var(--spacing-sm);
+  }
+
+  .nav {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height var(--transition-normal),
+      opacity var(--transition-normal);
+    margin-bottom: 0;
+    padding: 0;
+  }
+
+  .navOpen {
+    max-height: 1000px;
+    opacity: 1;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .topSection {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md) 0;
+  }
+
+  .logoContainer {
+    order: 1;
+  }
+
+  .searchContainer {
+    order: 2;
+    width: 100%;
+    min-width: unset;
+  }
+
+  .logo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .tagline {
+    font-size: var(--font-size-base);
+    margin-top: var(--spacing-md);
+  }
+
+  .menu {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .menuItem {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+  }
+
+  .menuItem:first-of-type {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .menuLink {
+    width: 100%;
+    text-align: center;
+  }
+
+  .submenu {
+    display: block;
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .submenuLink {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    color: var(--color-white);
+  }
+
+  .submenuLink:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}

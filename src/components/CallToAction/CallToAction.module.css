@@ -85,3 +85,44 @@
   padding: 0.875rem var(--spacing-2xl);
   font-size: var(--font-size-md);
 }
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-xl);
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+  }
+
+  .textSection {
+    width: 100%;
+  }
+
+  .headingRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .descriptionRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+
+  .buttonSection {
+    width: 100%;
+  }
+
+  .button {
+    width: 100%;
+    text-align: center;
+  }
+}
