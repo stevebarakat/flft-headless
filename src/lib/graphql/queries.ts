@@ -56,6 +56,17 @@ export const GET_POST_BY_URI = `
         uri
         date
         excerpt
+        author {
+          node {
+            name
+          }
+        }
+        categories {
+          nodes {
+            name
+            slug
+          }
+        }
         featuredImage {
           node {
             sourceUrl
@@ -64,6 +75,76 @@ export const GET_POST_BY_URI = `
               width
               height
             }
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_POST_BY_SLUG = `
+  query GetPostBySlug($slug: String!) {
+    postBy(slug: $slug) {
+      id
+      title
+      content
+      slug
+      uri
+      date
+      excerpt
+      author {
+        node {
+          name
+        }
+      }
+      categories {
+        nodes {
+          name
+          slug
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_POST_BY_SLUG_ID = `
+  query GetPostBySlugId($slug: String!) {
+    post(id: $slug, idType: SLUG) {
+      id
+      title
+      content
+      slug
+      uri
+      date
+      excerpt
+      author {
+        node {
+          name
+        }
+      }
+      categories {
+        nodes {
+          name
+          slug
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+          mediaDetails {
+            width
+            height
           }
         }
       }

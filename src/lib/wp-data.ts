@@ -3,6 +3,8 @@ import {
   GET_MENU_BY_NAME,
   GET_PAGE_BY_URI,
   GET_POST_BY_URI,
+  GET_POST_BY_SLUG,
+  GET_POST_BY_SLUG_ID,
   GET_ALL_PAGES,
   GET_ALL_POSTS,
   GET_MEDIA_BY_ID,
@@ -51,14 +53,60 @@ export async function getPageByUri(uri: string): Promise<WpPage | null> {
 }
 
 export async function getPostByUri(uri: string): Promise<WpPost | null> {
-  try {
-    const data = await wpClient.request<{
-      nodeByUri: WpPost | null;
-    }>(GET_POST_BY_URI, { uri });
+  const variations = new Set<string>();
 
-    return data.nodeByUri;
+  variations.add(uri);
+  variations.add(uri.endsWith("/") ? uri.slice(0, -1) : `${uri}/`);
+  if (uri.startsWith("/")) {
+    variations.add(uri.slice(1));
+    variations.add(uri.endsWith("/") ? uri.slice(1, -1) : `${uri.slice(1)}/`);
+  } else {
+    variations.add(`/${uri}`);
+    variations.add(`/${uri}/`);
+  }
+
+  for (const uriVariation of variations) {
+    try {
+      const data = await wpClient.request<{
+        nodeByUri: WpPost | null;
+      }>(GET_POST_BY_URI, { uri: uriVariation });
+
+      if (data.nodeByUri) {
+        return data.nodeByUri;
+      }
+    } catch (error) {
+      continue;
+    }
+  }
+
+  return null;
+}
+
+export async function getPostBySlug(slug: string): Promise<WpPost | null> {
+  try {
+    let data = await wpClient.request<{
+      postBy: WpPost | null;
+    }>(GET_POST_BY_SLUG, { slug });
+
+    if (!data.postBy) {
+      data = await wpClient.request<{
+        postBy: WpPost | null;
+      }>(GET_POST_BY_SLUG, { slug: decodeURIComponent(slug) });
+    }
+
+    if (!data.postBy) {
+      const dataById = await wpClient.request<{
+        post: WpPost | null;
+      }>(GET_POST_BY_SLUG_ID, { slug });
+
+      if (dataById.post) {
+        return dataById.post;
+      }
+    }
+
+    return data.postBy;
   } catch (error) {
-    console.error("Error fetching post:", error);
+    console.error("Error fetching post by slug:", error);
     return null;
   }
 }
