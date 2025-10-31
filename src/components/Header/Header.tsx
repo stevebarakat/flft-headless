@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Search } from "lucide-react";
 import type { WpMenu, WpSiteInfo, WpSocialLink } from "@/types/wp";
 import { SocialLinks } from "@/components/SocialLinks";
+import { Search } from "@/components/Search";
 import styles from "./Header.module.css";
 
 type HeaderProps = {
@@ -35,13 +35,7 @@ export function Header({ menu, siteInfo, socialLinks }: HeaderProps) {
             )}
           </Link>
           <div className={styles.searchContainer}>
-            <input
-              type="search"
-              placeholder="Search..."
-              className={styles.searchInput}
-              disabled
-            />
-            <Search size={20} className={styles.searchIcon} />
+            <Search />
           </div>
         </div>
         {menu && menu.menuItems.nodes.length > 0 && (

@@ -1,0 +1,149 @@
+.searchWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchContainer {
+  position: relative;
+  width: 100%;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  color: hsl(0, 0%, 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.searchBox {
+  width: 100%;
+}
+
+.searchForm {
+  position: relative;
+}
+
+.searchInput {
+  padding: 0.5rem 2.5rem 0.5rem 2.75rem;
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  min-width: 200px;
+  width: 100%;
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(0, 0%, 20%);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: hsl(200, 100%, 50%);
+}
+
+.searchSubmit {
+  display: none;
+}
+
+.searchReset {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(0, 0%, 50%);
+}
+
+.searchReset:hover {
+  color: hsl(0, 0%, 20%);
+}
+
+.results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: hsl(0, 0%, 100%);
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 4px;
+  margin-top: 0.25rem;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px hsl(0, 0%, 0%, 0.1);
+  z-index: 1000;
+}
+
+.hitsRoot {
+  width: 100%;
+}
+
+.hitsList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hitItem {
+  margin: 0;
+  padding: 0;
+}
+
+.hit {
+  display: block;
+  padding: 1rem;
+  text-decoration: none;
+  color: hsl(0, 0%, 20%);
+  border-bottom: 1px solid hsl(0, 0%, 95%);
+  transition: background-color 0.2s;
+}
+
+.hit:last-child {
+  border-bottom: none;
+}
+
+.hit:hover {
+  background-color: hsl(0, 0%, 98%);
+}
+
+.hitContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.hitTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: hsl(200, 100%, 30%);
+}
+
+.hitExcerpt {
+  font-size: 0.875rem;
+  color: hsl(0, 0%, 50%);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty {
+  padding: 1.5rem;
+  text-align: center;
+  color: hsl(0, 0%, 50%);
+  font-size: 0.875rem;
+}
+
