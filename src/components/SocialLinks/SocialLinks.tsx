@@ -4,15 +4,26 @@ import styles from "./SocialLinks.module.css";
 
 type SocialLinksProps = {
   links: WpSocialLink[];
+  orientation?: "horizontal" | "vertical";
+  showText?: boolean;
 };
 
-export function SocialLinks({ links }: SocialLinksProps) {
+export function SocialLinks({
+  links,
+  orientation = "vertical",
+  showText = true,
+}: SocialLinksProps) {
   if (links.length === 0) {
     return null;
   }
 
+  const containerClass =
+    orientation === "horizontal"
+      ? styles.socialLinksHorizontal
+      : styles.socialLinks;
+
   return (
-    <div className={styles.socialLinks}>
+    <div className={containerClass}>
       {links.map((link) => (
         <a
           key={link.id}
@@ -20,6 +31,7 @@ export function SocialLinks({ links }: SocialLinksProps) {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}
+          aria-label={showText ? undefined : link.platform}
         >
           <Image
             src={link.iconUrl}
@@ -28,7 +40,7 @@ export function SocialLinks({ links }: SocialLinksProps) {
             height={40}
             className={styles.icon}
           />
-          <span className={styles.text}>{link.platform}</span>
+          {showText && <span className={styles.text}>{link.platform}</span>}
         </a>
       ))}
     </div>

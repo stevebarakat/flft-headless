@@ -39,7 +39,11 @@ export function Footer({
 
           <div className={styles.socialColumn}>
             <h3 className={styles.sectionTitle}>Follow Us</h3>
-            <SocialLinks links={socialLinks} />
+            <SocialLinks
+              links={socialLinks}
+              orientation="vertical"
+              showText={true}
+            />
           </div>
 
           {menu && menu.menuItems.nodes.length > 0 && (
