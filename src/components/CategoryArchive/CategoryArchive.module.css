@@ -135,6 +135,15 @@
   color: hsl(210, 100%, 40%);
 }
 
+.prevLink {
+  color: hsl(0, 0%, 60%);
+  text-decoration: none;
+}
+
+.prevLink:hover {
+  color: hsl(210, 100%, 40%);
+}
+
 .nextLink {
   color: hsl(0, 0%, 60%);
   text-decoration: none;

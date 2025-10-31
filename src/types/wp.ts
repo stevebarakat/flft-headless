@@ -93,6 +93,7 @@ export type WpCategoryArchive = {
     nodes: WpPost[];
   };
   category: WpCategory | null;
+  totalCount?: number;
 };
 
 export type WpAuthor = {
@@ -106,6 +107,7 @@ export type WpAuthorArchive = {
     nodes: WpPost[];
   };
   author: WpAuthor | null;
+  totalCount?: number;
 };
 
 export type WpSiteLogo = {

@@ -9,6 +9,8 @@ type AuthorArchiveProps = {
   author: WpAuthor | null;
   pageInfo: WpPageInfo;
   currentPage?: number;
+  totalCount?: number;
+  postsPerPage?: number;
 };
 
 function formatDate(dateString: string): string {
@@ -35,6 +37,8 @@ export function AuthorArchive({
   author,
   pageInfo,
   currentPage = 1,
+  totalCount,
+  postsPerPage = 2,
 }: AuthorArchiveProps) {
   const authorName = author?.name || "Unknown Author";
 
@@ -111,16 +115,46 @@ export function AuthorArchive({
 
         <nav className={styles.pagination}>
           <span className={styles.pageNumbers}>
-            <span className={styles.currentPage}>{currentPage}</span>
-            {pageInfo.hasNextPage && (
+            {currentPage > 1 && (
               <>
-                {" "}
                 <Link
-                  href={`/author/${author?.slug || "unknown"}?page=${currentPage + 1}`}
-                  className={styles.pageLink}
+                  href={`/author/${author?.slug || "unknown"}?page=${currentPage - 1}`}
+                  className={styles.prevLink}
                 >
-                  {currentPage + 1}
+                  ← Prev
                 </Link>
+                {" "}
+              </>
+            )}
+            {totalCount && (() => {
+              const totalPages = Math.ceil(totalCount / postsPerPage);
+              const pages = [];
+              for (let i = 1; i <= totalPages; i++) {
+                if (i > 1) {
+                  pages.push(" ");
+                }
+                if (i === currentPage) {
+                  pages.push(
+                    <span key={i} className={styles.currentPage}>
+                      {i}
+                    </span>
+                  );
+                } else {
+                  pages.push(
+                    <Link
+                      key={i}
+                      href={`/author/${author?.slug || "unknown"}?page=${i}`}
+                      className={styles.pageLink}
+                    >
+                      {i}
+                    </Link>
+                  );
+                }
+              }
+              return pages;
+            })()}
+            {(!totalCount || (pageInfo.hasNextPage && currentPage < Math.ceil((totalCount || 0) / postsPerPage))) && (
+              <>
                 {" "}
                 <Link
                   href={`/author/${author?.slug || "unknown"}?page=${currentPage + 1}`}

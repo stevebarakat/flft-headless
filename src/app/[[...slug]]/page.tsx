@@ -62,7 +62,12 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
   if (slug.length === 2 && slug[0] === "category") {
     const categorySlug = slug[1];
     const currentPage = page ? parseInt(page, 10) : 1;
-    const categoryData = await getCategoryPosts(categorySlug, 4);
+    const categoryData = await getCategoryPosts(
+      categorySlug,
+      2,
+      null,
+      currentPage
+    );
 
     if (!categoryData || !categoryData.category) {
       notFound();
@@ -74,6 +79,8 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
         category={categoryData.category}
         pageInfo={categoryData.posts.pageInfo}
         currentPage={currentPage}
+        totalCount={categoryData.totalCount}
+        postsPerPage={2}
       />
     );
   }
@@ -87,9 +94,13 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
 
-    const authorData = await getAuthorPosts(authorName, 4);
+    const authorData = await getAuthorPosts(authorName, 2, null, currentPage);
 
-    if (!authorData || !authorData.author || authorData.posts.nodes.length === 0) {
+    if (
+      !authorData ||
+      !authorData.author ||
+      authorData.posts.nodes.length === 0
+    ) {
       notFound();
     }
 
@@ -99,6 +110,8 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
         author={authorData.author}
         pageInfo={authorData.posts.pageInfo}
         currentPage={currentPage}
+        totalCount={authorData.totalCount}
+        postsPerPage={2}
       />
     );
   }
@@ -160,7 +173,10 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
                 </time>
               )}
               {post.author?.node && (
-                <Link href={`/author/${getAuthorSlug(post.author.node.name)}`} className="author">
+                <Link
+                  href={`/author/${getAuthorSlug(post.author.node.name)}`}
+                  className="author"
+                >
                   {post.author.node.name}
                 </Link>
               )}

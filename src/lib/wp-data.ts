@@ -265,12 +265,69 @@ export async function getLatestTipsAndTricks(): Promise<WpPost[]> {
   }
 }
 
+async function countCategoryPosts(categorySlug: string, first: number = 100): Promise<number> {
+  let totalCount = 0;
+  let cursor: string | null = null;
+  let hasNextPage = true;
+
+  while (hasNextPage) {
+    const pageData = await wpClient.request<{
+      posts: {
+        pageInfo: { hasNextPage: boolean; endCursor: string | null };
+        nodes: WpPost[];
+      };
+    }>(GET_POSTS_BY_CATEGORY, {
+      categorySlug,
+      first,
+      after: cursor,
+    });
+
+    totalCount += pageData.posts.nodes.length;
+    hasNextPage = pageData.posts.pageInfo.hasNextPage;
+    cursor = pageData.posts.pageInfo.endCursor || null;
+  }
+
+  return totalCount;
+}
+
 export async function getCategoryPosts(
   categorySlug: string,
   first: number = 10,
-  after?: string | null
+  after?: string | null,
+  page?: number
 ): Promise<WpCategoryArchive | null> {
   try {
+    let cursor: string | null = after || null;
+    let lastPageData: {
+      posts: {
+        pageInfo: WpCategoryArchive["posts"]["pageInfo"];
+        nodes: WpCategoryArchive["posts"]["nodes"];
+      };
+    } | null = null;
+
+    if (page && page > 1) {
+      for (let i = 1; i < page; i++) {
+        const pageData = await wpClient.request<{
+          posts: {
+            pageInfo: WpCategoryArchive["posts"]["pageInfo"];
+            nodes: WpCategoryArchive["posts"]["nodes"];
+          };
+        }>(GET_POSTS_BY_CATEGORY, {
+          categorySlug,
+          first,
+          after: cursor,
+        });
+
+        lastPageData = pageData;
+
+        if (!pageData.posts.pageInfo.hasNextPage) {
+          break;
+        }
+
+        cursor = pageData.posts.pageInfo.endCursor || null;
+      }
+    }
+
     const data = await wpClient.request<{
       posts: {
         pageInfo: WpCategoryArchive["posts"]["pageInfo"];
@@ -279,19 +336,22 @@ export async function getCategoryPosts(
     }>(GET_POSTS_BY_CATEGORY, {
       categorySlug,
       first,
-      after: after || null,
+      after: cursor,
     });
 
-    const firstPost = data.posts.nodes[0];
+    const resultData = data.posts.nodes.length > 0 ? data : lastPageData || data;
+
+    const firstPost = resultData.posts.nodes[0];
     const categoryNode = firstPost?.categories?.nodes.find(
       (cat) => cat.slug === categorySlug
     );
 
     return {
-      posts: data.posts,
+      posts: resultData.posts,
       category: categoryNode
         ? { name: categoryNode.name, slug: categoryNode.slug }
         : { name: categorySlug, slug: categorySlug },
+      totalCount: await countCategoryPosts(categorySlug, first),
     };
   } catch (error) {
     console.error("Error fetching category posts:", error);
@@ -325,12 +385,69 @@ export async function getCategoryPostsForRSS(categorySlug: string) {
   }
 }
 
+async function countAuthorPosts(authorName: string, first: number = 100): Promise<number> {
+  let totalCount = 0;
+  let cursor: string | null = null;
+  let hasNextPage = true;
+
+  while (hasNextPage) {
+    const pageData = await wpClient.request<{
+      posts: {
+        pageInfo: { hasNextPage: boolean; endCursor: string | null };
+        nodes: WpPost[];
+      };
+    }>(GET_POSTS_BY_AUTHOR, {
+      authorName,
+      first,
+      after: cursor,
+    });
+
+    totalCount += pageData.posts.nodes.length;
+    hasNextPage = pageData.posts.pageInfo.hasNextPage;
+    cursor = pageData.posts.pageInfo.endCursor || null;
+  }
+
+  return totalCount;
+}
+
 export async function getAuthorPosts(
   authorName: string,
   first: number = 10,
-  after?: string | null
+  after?: string | null,
+  page?: number
 ): Promise<WpAuthorArchive | null> {
   try {
+    let cursor: string | null = after || null;
+    let lastPageData: {
+      posts: {
+        pageInfo: WpAuthorArchive["posts"]["pageInfo"];
+        nodes: WpAuthorArchive["posts"]["nodes"];
+      };
+    } | null = null;
+
+    if (page && page > 1) {
+      for (let i = 1; i < page; i++) {
+        const pageData = await wpClient.request<{
+          posts: {
+            pageInfo: WpAuthorArchive["posts"]["pageInfo"];
+            nodes: WpAuthorArchive["posts"]["nodes"];
+          };
+        }>(GET_POSTS_BY_AUTHOR, {
+          authorName,
+          first,
+          after: cursor,
+        });
+
+        lastPageData = pageData;
+
+        if (!pageData.posts.pageInfo.hasNextPage) {
+          break;
+        }
+
+        cursor = pageData.posts.pageInfo.endCursor || null;
+      }
+    }
+
     const data = await wpClient.request<{
       posts: {
         pageInfo: WpAuthorArchive["posts"]["pageInfo"];
@@ -339,19 +456,22 @@ export async function getAuthorPosts(
     }>(GET_POSTS_BY_AUTHOR, {
       authorName,
       first,
-      after: after || null,
+      after: cursor,
     });
 
-    const firstPost = data.posts.nodes[0];
+    const resultData = data.posts.nodes.length > 0 ? data : lastPageData || data;
+
+    const firstPost = resultData.posts.nodes[0];
     const authorNameFromPost = firstPost?.author?.node?.name;
 
     const authorSlug = authorName.toLowerCase().replace(/\s+/g, "-");
 
     return {
-      posts: data.posts,
+      posts: resultData.posts,
       author: authorNameFromPost
         ? { name: authorNameFromPost, slug: authorSlug }
         : { name: authorName, slug: authorSlug },
+      totalCount: await countAuthorPosts(authorName, first),
     };
   } catch (error) {
     console.error("Error fetching author posts:", error);
