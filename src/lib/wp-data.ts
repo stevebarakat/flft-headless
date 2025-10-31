@@ -8,8 +8,9 @@ import {
   GET_MEDIA_BY_ID,
   GET_SITE_INFO,
   GET_SOCIAL_LINKS,
+  GET_SLIDER_IMAGES,
 } from "./graphql/queries";
-import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink } from "@/types/wp";
+import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage } from "@/types/wp";
 
 export async function getMenu(name: string = "Main"): Promise<WpMenu | null> {
   try {
@@ -160,6 +161,21 @@ export async function getSocialLinks(): Promise<WpSocialLink[]> {
       .sort((a, b) => a.sortOrder - b.sortOrder);
   } catch (error) {
     console.error("Error fetching social links:", error);
+    return [];
+  }
+}
+
+export async function getSliderImages(): Promise<WpSliderImage[]> {
+  try {
+    const data = await wpClient.request<{
+      imageSlider: {
+        images: WpSliderImage[];
+      } | null;
+    }>(GET_SLIDER_IMAGES);
+
+    return data.imageSlider?.images || [];
+  } catch (error) {
+    console.error("Error fetching slider images:", error);
     return [];
   }
 }

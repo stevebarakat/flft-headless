@@ -75,3 +75,11 @@ export type WpSocialLink = {
   handle: string;
 };
 
+export type WpSliderImage = {
+  imageUrl: string;
+};
+
+export type WpSliderImages = {
+  images: WpSliderImage[];
+};
+

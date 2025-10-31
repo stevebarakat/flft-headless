@@ -147,3 +147,13 @@ export const GET_SOCIAL_LINKS = `
   }
 `;
 
+export const GET_SLIDER_IMAGES = `
+  query GetSliderImages {
+    imageSlider(id: 1) {
+      images {
+        imageUrl
+      }
+    }
+  }
+`;
+
