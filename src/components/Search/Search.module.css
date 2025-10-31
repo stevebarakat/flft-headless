@@ -17,8 +17,8 @@
 
 .searchIcon {
   position: absolute;
-  left: 0.75rem;
-  color: hsl(0, 0%, 50%);
+  left: var(--spacing-md);
+  color: var(--color-text-light);
   pointer-events: none;
   z-index: 1;
 }
@@ -32,14 +32,14 @@
 }
 
 .searchInput {
-  padding: 0.5rem 2.5rem 0.5rem 2.75rem;
-  border: 1px solid hsl(0, 0%, 80%);
-  border-radius: 99999px;
-  font-size: 0.875rem;
+  padding: var(--spacing-sm) 2.5rem var(--spacing-sm) 2.75rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
   min-width: 200px;
   width: 100%;
-  background-color: hsl(0, 0%, 100%);
-  color: hsl(0, 0%, 20%);
+  background-color: var(--color-white);
+  color: var(--color-text-secondary);
 }
 
 .searchInput::-webkit-search-cancel-button {
@@ -52,7 +52,7 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: hsl(200, 100%, 50%);
+  border-color: var(--color-focus);
 }
 
 .searchSubmit {
@@ -61,21 +61,21 @@
 
 .searchReset {
   position: absolute;
-  right: 0.5rem;
+  right: var(--spacing-sm);
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.25rem;
+  padding: var(--spacing-xs);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: hsl(0, 0%, 50%);
+  color: var(--color-text-light);
 }
 
 .searchReset:hover {
-  color: hsl(0, 0%, 20%);
+  color: var(--color-text-secondary);
 }
 
 .results {
@@ -83,14 +83,14 @@
   top: 100%;
   left: 0;
   right: 0;
-  background-color: hsl(0, 0%, 100%);
-  border: 1px solid hsl(0, 0%, 80%);
-  border-radius: 4px;
-  margin-top: 0.25rem;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-xs);
   max-height: 400px;
   overflow-y: auto;
-  box-shadow: 0 4px 6px hsl(0, 0%, 0%, 0.1);
-  z-index: 1000;
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
 }
 
 .hitsRoot {
@@ -110,11 +110,11 @@
 
 .hit {
   display: block;
-  padding: 1rem;
+  padding: var(--spacing-lg);
   text-decoration: none;
-  color: hsl(0, 0%, 20%);
-  border-bottom: 1px solid hsl(0, 0%, 95%);
-  transition: background-color 0.2s;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-darker);
+  transition: background-color var(--transition-normal);
 }
 
 .hit:last-child {
@@ -122,25 +122,25 @@
 }
 
 .hit:hover {
-  background-color: hsl(0, 0%, 98%);
+  background-color: var(--color-bg-card);
 }
 
 .hitContent {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--spacing-xs);
 }
 
 .hitTitle {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
   margin: 0;
-  color: hsl(200, 100%, 30%);
+  color: var(--color-link-tertiary);
 }
 
 .hitExcerpt {
-  font-size: 0.875rem;
-  color: hsl(0, 0%, 50%);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -149,8 +149,8 @@
 }
 
 .empty {
-  padding: 1.5rem;
+  padding: var(--spacing-xl);
   text-align: center;
-  color: hsl(0, 0%, 50%);
-  font-size: 0.875rem;
+  color: var(--color-text-light);
+  font-size: var(--font-size-sm);
 }

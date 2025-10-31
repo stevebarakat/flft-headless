@@ -1,51 +1,51 @@
 .container {
-  max-width: 970px;
+  max-width: var(--container-lg);
   margin: 0 auto;
-  padding: 2rem;
-  background-color: hsl(0, 0%, 97.3%);
-  border-radius: 5px;
-  box-shadow: 0 2px 8px hsl(0, 0%, 0%, 0.08);
+  padding: var(--spacing-2xl);
+  background-color: var(--color-bg-lighter);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: var(--spacing-2xl);
 }
 
 .textSection {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .headingRow {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 .heading {
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
   line-height: 1.5rem;
   color: hsl(0, 0%, 29%);
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
   margin: 0;
 }
 
 .separator {
   color: hsl(0, 0%, 29%);
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
 }
 
 .phoneNumber {
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
   line-height: 1.5rem;
-  color: hsl(208, 72%, 56%);
+  color: var(--color-link-quaternary);
   text-decoration: none;
-  font-weight: 400;
+  font-weight: var(--font-weight-normal);
 }
 
 .phoneNumber:hover {
@@ -55,20 +55,20 @@
 .descriptionRow {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
   flex-wrap: wrap;
 }
 
 .description {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   line-height: 1rem;
   color: hsl(0, 0%, 48%);
 }
 
 .link {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   line-height: 1rem;
-  color: hsl(208, 72%, 56%);
+  color: var(--color-link-quaternary);
   text-decoration: none;
 }
 
@@ -82,7 +82,6 @@
 
 .button {
   composes: buttonGradient from global;
-  padding: 0.875rem 2rem;
-  font-size: 1.125rem;
+  padding: 0.875rem var(--spacing-2xl);
+  font-size: var(--font-size-md);
 }
-

@@ -1,46 +1,46 @@
 .pagination {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid hsl(0, 0%, 90%);
+  margin-top: var(--spacing-4xl);
+  padding-top: var(--spacing-2xl);
+  border-top: 1px solid var(--color-border-dark);
   text-align: left;
   display: flex;
   justify-content: center;
 }
 
 .pageNumbers {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: hsl(0, 0%, 50%);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-light);
 }
 
 .currentPage {
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .pageLink {
-  color: hsl(0, 0%, 50%);
+  color: var(--color-text-light);
   text-decoration: none;
-  padding: 0 0.5rem;
+  padding: 0 var(--spacing-sm);
 }
 
 .pageLink:hover {
-  color: hsl(210, 100%, 40%);
+  color: var(--color-link-secondary);
 }
 
 .prevLink {
-  color: hsl(0, 0%, 50%);
+  color: var(--color-text-light);
   text-decoration: none;
 }
 
 .prevLink:hover {
-  color: hsl(210, 100%, 40%);
+  color: var(--color-link-secondary);
 }
 
 .nextLink {
-  color: hsl(0, 0%, 50%);
+  color: var(--color-text-light);
   text-decoration: none;
 }
 
 .nextLink:hover {
-  color: hsl(210, 100%, 40%);
+  color: var(--color-link-secondary);
 }

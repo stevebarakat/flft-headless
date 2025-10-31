@@ -1,5 +1,5 @@
 .article {
-  padding: 3rem 0 4rem;
+  padding: var(--spacing-4xl) 0 var(--spacing-5xl);
 }
 
 .container {
@@ -8,20 +8,20 @@
 
 .title {
   font-size: clamp(1.5rem, 5vw, 2rem);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   line-height: 1.3;
-  margin: 0 0 1rem;
-  color: hsl(0, 0%, 25%);
+  margin: 0 0 var(--spacing-lg);
+  color: var(--color-text-tertiary);
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: var(--spacing-2xl);
 }
 
 .intro {
-  font-size: 1.125rem;
+  font-size: var(--font-size-md);
   line-height: 1.8125rem;
   color: hsl(0, 0%, 29.8%);
   margin: 0;
@@ -29,14 +29,14 @@
 
 @media (max-width: 768px) {
   .article {
-    padding: 2rem 0 3rem;
+    padding: var(--spacing-2xl) 0 var(--spacing-4xl);
   }
 
   .title {
-    margin-bottom: 0.75rem;
+    margin-bottom: var(--spacing-md);
   }
 
   .content {
-    gap: 1.5rem;
+    gap: var(--spacing-xl);
   }
 }

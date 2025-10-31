@@ -1,6 +1,6 @@
 .section {
-  padding: 3rem 2rem;
-  background-color: hsl(0, 0%, 100%);
+  padding: var(--spacing-4xl) var(--spacing-2xl);
+  background-color: var(--color-white);
 }
 
 .container {
@@ -8,17 +8,17 @@
 }
 
 .heading {
-  font-size: 2rem;
-  font-weight: 700;
-  color: hsl(0, 0%, 0%);
-  margin: 0 0 2rem 0;
-  line-height: 1.2;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-black);
+  margin: 0 0 var(--spacing-2xl) 0;
+  line-height: var(--line-height-tight);
 }
 
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  gap: var(--spacing-xl);
 }
 
 .card {
@@ -28,7 +28,7 @@
 
 .imageWrapper {
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-lg);
   border: 1px solid #e6e6e6;
   position: relative;
   aspect-ratio: 4 / 3;
@@ -36,7 +36,7 @@
 }
 
 .image {
-  padding: 0.5rem;
+  padding: var(--spacing-sm);
   width: 100%;
   height: 100%;
   display: block;
@@ -46,18 +46,18 @@
 }
 
 .title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: hsl(0, 0%, 0%);
-  margin: 0 0 0.5rem 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-black);
+  margin: 0 0 var(--spacing-sm) 0;
   line-height: 1.4;
 }
 
 .excerpt {
-  font-size: 0.875rem;
+  font-size: var(--font-size-sm);
   color: hsl(0, 0%, 48%);
-  margin: 0 0 1rem 0;
-  line-height: 1.5;
+  margin: 0 0 var(--spacing-lg) 0;
+  line-height: var(--line-height-normal);
   flex: 1;
 }
 

@@ -33,15 +33,15 @@
 }
 
 .logoText {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: hsl(200, 100%, 30%);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-link-tertiary);
 }
 
 .tagline {
   font-size: 21px;
   color: hsl(0 0% 62.75%);
-  margin-top: 1rem;
+  margin-top: var(--spacing-lg);
   font-style: italic;
 }
 
@@ -49,39 +49,40 @@
   position: relative;
   display: flex;
   align-items: center;
+  min-width: 250px;
 }
 
 .searchInput {
-  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
-  border: 1px solid hsl(0, 0%, 80%);
-  border-radius: 4px;
-  font-size: 0.875rem;
+  padding: var(--spacing-sm) 2.5rem var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
   min-width: 200px;
-  background-color: hsl(0, 0%, 100%);
-  color: hsl(0, 0%, 20%);
+  background-color: var(--color-white);
+  color: var(--color-text-secondary);
 }
 
 .searchInput:focus {
   outline: none;
-  border-color: hsl(200, 100%, 50%);
+  border-color: var(--color-focus);
 }
 
 .searchInput:disabled {
-  background-color: hsl(0, 0%, 95%);
+  background-color: var(--color-border-darker);
   cursor: not-allowed;
 }
 
 .searchIcon {
   position: absolute;
-  right: 0.75rem;
-  color: hsl(0, 0%, 50%);
+  right: var(--spacing-md);
+  color: var(--color-text-light);
   pointer-events: none;
 }
 
 .nav {
   width: 100%;
   padding: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--spacing-sm);
   border: 1px solid var(--color-light-blue);
   background: var(--color-light-blue);
   background: linear-gradient(
@@ -90,7 +91,7 @@
     var(--color-med-blue) 44%,
     var(--color-dark-blue) 100%
   );
-  border-radius: 4px;
+  border-radius: var(--radius-md);
 }
 
 .menu {
@@ -115,20 +116,20 @@
 }
 
 .menuLink {
-  color: hsl(0, 0%, 100%);
+  color: var(--color-white);
   text-decoration: none;
-  font-weight: 500;
-  padding: 0.75rem 1.5rem;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-md) var(--spacing-xl);
   display: block;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-normal);
   font-weight: bold;
   padding: 0.618em 1.618em;
-  color: #fff;
+  color: var(--color-white);
   text-shadow: 0 -1px 0 #2f2f2f;
 }
 
 .menuLink:hover {
-  color: hsl(0, 0%, 100%);
+  color: var(--color-white);
   background: linear-gradient(
     to top,
     var(--color-light-blue) 0%,
@@ -141,18 +142,18 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: hsl(0, 0%, 100%);
-  border: 1px solid hsl(0, 0%, 90%);
-  border-radius: 4px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius-md);
   list-style: none;
   margin: 0;
-  padding: 0.5rem 0;
+  padding: var(--spacing-sm) 0;
   min-width: 200px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s;
-  z-index: 1000;
-  box-shadow: 0 4px 6px hsl(0, 0%, 0%, 0.1);
+  transition: opacity var(--transition-normal);
+  z-index: var(--z-dropdown);
+  box-shadow: var(--shadow-lg);
 }
 
 .menuItem:hover .submenu,
@@ -163,12 +164,12 @@
 
 .submenuLink {
   display: block;
-  padding: 0.5rem 1rem;
-  color: hsl(0, 0%, 20%);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  color: var(--color-text-secondary);
   text-decoration: none;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-normal);
 }
 
 .submenuLink:hover {
-  background-color: hsl(0, 0%, 95%);
+  background-color: var(--color-border-darker);
 }
