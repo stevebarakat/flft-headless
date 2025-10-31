@@ -41,8 +41,8 @@
 
 .controls {
   position: absolute;
-  bottom: var(--spacing-xl);
-  left: var(--spacing-xl);
+  top: var(--spacing-xl);
+  right: var(--spacing-xl);
   display: flex;
   gap: var(--spacing-sm);
   z-index: var(--z-overlay);
@@ -51,7 +51,7 @@
 .navButton {
   width: 48px;
   height: 48px;
-  border-radius: 50%;
+  border-radius: var(--radius-md);
   background-color: hsl(0, 0%, 0%, 0.5);
   border: none;
   color: var(--color-white);
@@ -74,13 +74,14 @@
   .slider {
     width: 100%;
     max-width: 100%;
-    height: 400px;
+    height: auto;
+    aspect-ratio: 970 / 645;
     padding: 0 var(--spacing-md);
   }
 
   .controls {
-    bottom: var(--spacing-md);
-    left: var(--spacing-md);
+    top: var(--spacing-lg);
+    right: var(--spacing-2xl);
   }
 
   .navButton {
