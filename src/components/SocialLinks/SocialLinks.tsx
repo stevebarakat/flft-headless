@@ -20,7 +20,6 @@ export function SocialLinks({ links }: SocialLinksProps) {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.link}
-          aria-label={link.platform}
         >
           <Image
             src={link.iconUrl}
@@ -29,6 +28,7 @@ export function SocialLinks({ links }: SocialLinksProps) {
             height={40}
             className={styles.icon}
           />
+          <span className={styles.text}>{link.platform}</span>
         </a>
       ))}
     </div>

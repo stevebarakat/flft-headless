@@ -29,6 +29,9 @@ export function Footer({ menu, siteInfo, socialLinks }: FooterProps) {
                 <span className={styles.logoText}>{siteInfo.title}</span>
               )}
             </Link>
+          </div>
+
+          <div className={styles.socialColumn}>
             <SocialLinks links={socialLinks} />
           </div>
 

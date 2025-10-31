@@ -28,6 +28,10 @@
   flex: 1;
 }
 
+.socialColumn {
+  flex: 1;
+}
+
 .logoContainer {
   display: flex;
   text-decoration: none;
