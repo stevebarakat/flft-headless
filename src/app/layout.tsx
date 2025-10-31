@@ -32,8 +32,8 @@ export default async function RootLayout({
         <div className="container">
           <Header menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
           <main>{children}</main>
-          <Footer menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
         </div>
+        <Footer menu={menu} siteInfo={siteInfo} socialLinks={socialLinks} />
       </body>
     </html>
   );

@@ -1,12 +1,15 @@
 .footer {
   background-color: hsl(198, 36%, 52%);
   color: hsl(0, 0%, 100%);
-  margin-top: 3rem;
   padding: 2rem 0 1rem;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
 .container {
-  composes: container from global;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .topSection {
