@@ -3,9 +3,7 @@
 }
 
 .container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  composes: containerNarrow from global;
 }
 
 .title {
@@ -32,10 +30,6 @@
 @media (max-width: 768px) {
   .article {
     padding: 2rem 0 3rem;
-  }
-
-  .container {
-    padding: 0 1.25rem;
   }
 
   .title {

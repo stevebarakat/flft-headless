@@ -4,8 +4,7 @@
 }
 
 .container {
-  max-width: 1080px;
-  margin: 0 auto;
+  composes: container from global;
 }
 
 .heading {
@@ -101,4 +100,3 @@
     grid-template-columns: 1fr;
   }
 }
-

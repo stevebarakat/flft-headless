@@ -79,6 +79,19 @@ h6 {
   max-width: 1080px;
   margin: 0 auto;
   background-color: hsl(0, 0%, 100%);
+  padding: 0 1rem;
+}
+
+.containerNarrow {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .containerNarrow {
+    padding: 0 1.25rem;
+  }
 }
 
 main {

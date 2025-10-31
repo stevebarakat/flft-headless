@@ -357,3 +357,18 @@ export const GET_CATEGORY_POSTS_FOR_RSS = `
   }
 `;
 
+export const SUBMIT_CONTACT_FORM = `
+  mutation SubmitContactForm($name: String!, $email: String!, $subject: String!, $message: String!) {
+    submitContactForm(input: {
+      name: $name
+      email: $email
+      subject: $subject
+      message: $message
+    }) {
+      success
+      submissionId
+      message
+    }
+  }
+`;
+

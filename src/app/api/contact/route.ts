@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { submitContactForm } from "@/lib/wp-data";
 
 type ContactFormData = {
   name: string;
@@ -40,6 +41,20 @@ export async function POST(request: NextRequest) {
     const sanitizedSubject = sanitizeString(subject);
     const sanitizedMessage = sanitizeString(message);
 
+    const submissionResult = await submitContactForm({
+      name: sanitizedName,
+      email: sanitizedEmail,
+      subject: sanitizedSubject,
+      message: sanitizedMessage,
+    });
+
+    if (!submissionResult.success) {
+      return NextResponse.json(
+        { error: submissionResult.message || "Failed to save contact form submission" },
+        { status: 500 }
+      );
+    }
+
     const recipientEmail = process.env.CONTACT_EMAIL || "your-email@example.com";
     const fromEmail = process.env.FROM_EMAIL || "noreply@example.com";
 
@@ -53,40 +68,6 @@ Subject: ${sanitizedSubject}
 Message:
 ${sanitizedMessage}
 `;
-
-    if (process.env.USE_WORDPRESS_EMAIL === "true") {
-      const wpRestUrl = process.env.WP_REST_URL || "http://localhost:10023/wp-json";
-
-      try {
-        const wpResponse = await fetch(`${wpRestUrl}/wp/v2/contact/submit`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: sanitizedName,
-            email: sanitizedEmail,
-            subject: sanitizedSubject,
-            message: sanitizedMessage,
-          }),
-        });
-
-        if (!wpResponse.ok) {
-          throw new Error("WordPress endpoint failed");
-        }
-
-        return NextResponse.json(
-          { message: "Contact form submitted successfully" },
-          { status: 200 }
-        );
-      } catch (error) {
-        console.error("WordPress email endpoint error:", error);
-        return NextResponse.json(
-          { error: "Failed to send email via WordPress" },
-          { status: 500 }
-        );
-      }
-    }
 
     if (process.env.EMAIL_SERVICE === "sendgrid" && process.env.SENDGRID_API_KEY) {
       const sendGridResponse = await fetch("https://api.sendgrid.com/v3/mail/send", {

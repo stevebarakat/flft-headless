@@ -15,6 +15,7 @@ import {
   GET_LATEST_TIPS_AND_TRICKS,
   GET_POSTS_BY_CATEGORY,
   GET_CATEGORY_POSTS_FOR_RSS,
+  SUBMIT_CONTACT_FORM,
 } from "./graphql/queries";
 import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage, WpCallToAction, WpCategoryArchive } from "@/types/wp";
 
@@ -319,6 +320,36 @@ export async function getCategoryPostsForRSS(categorySlug: string) {
   } catch (error) {
     console.error("Error fetching category posts for RSS:", error);
     return null;
+  }
+}
+
+export async function submitContactForm(data: {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}): Promise<{ success: boolean; submissionId?: string; message?: string }> {
+  try {
+    const result = await wpClient.request<{
+      submitContactForm: {
+        success: boolean;
+        submissionId?: string;
+        message?: string;
+      };
+    }>(SUBMIT_CONTACT_FORM, {
+      name: data.name,
+      email: data.email,
+      subject: data.subject,
+      message: data.message,
+    });
+
+    return result.submitContactForm;
+  } catch (error) {
+    console.error("Error submitting contact form:", error);
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Failed to submit contact form",
+    };
   }
 }
 
