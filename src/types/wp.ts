@@ -83,3 +83,19 @@ export type WpSliderImages = {
   images: WpSliderImage[];
 };
 
+export type WpCallToAction = {
+  id: string;
+  ctaButtonText: string;
+  ctaButtonUrl: string;
+  description: string;
+  heading: string;
+  linkText: string;
+  linkUrl: string;
+  phoneNumber: string;
+  phoneNumberLink: string;
+  isEnabled: boolean;
+  ctaButtonPageId: number | null;
+  linkPageId: number | null;
+  sortOrder: number;
+};
+

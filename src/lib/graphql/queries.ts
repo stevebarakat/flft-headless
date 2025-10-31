@@ -157,3 +157,48 @@ export const GET_SLIDER_IMAGES = `
   }
 `;
 
+export const GET_CALL_TO_ACTION = `
+  query GetCallToAction {
+    callToAction(id: 1) {
+      id
+      ctaButtonText
+      ctaButtonUrl
+      description
+      heading
+      linkText
+      linkUrl
+      phoneNumber
+      phoneNumberLink
+      isEnabled
+      ctaButtonPageId
+      linkPageId
+      sortOrder
+    }
+  }
+`;
+
+export const GET_LATEST_TIPS_AND_TRICKS = `
+  query GetLatestTipsAndTricks {
+    posts(first: 4, where: {categoryName: "tips-tricks"}) {
+      nodes {
+        id
+        title
+        slug
+        uri
+        date
+        excerpt
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+            mediaDetails {
+              width
+              height
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+

@@ -9,8 +9,10 @@ import {
   GET_SITE_INFO,
   GET_SOCIAL_LINKS,
   GET_SLIDER_IMAGES,
+  GET_CALL_TO_ACTION,
+  GET_LATEST_TIPS_AND_TRICKS,
 } from "./graphql/queries";
-import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage } from "@/types/wp";
+import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage, WpCallToAction } from "@/types/wp";
 
 export async function getMenu(name: string = "Main"): Promise<WpMenu | null> {
   try {
@@ -176,6 +178,36 @@ export async function getSliderImages(): Promise<WpSliderImage[]> {
     return data.imageSlider?.images || [];
   } catch (error) {
     console.error("Error fetching slider images:", error);
+    return [];
+  }
+}
+
+export async function getCallToAction(): Promise<WpCallToAction | null> {
+  try {
+    const data = await wpClient.request<{
+      callToAction: WpCallToAction | null;
+    }>(GET_CALL_TO_ACTION);
+
+    if (!data.callToAction || !data.callToAction.isEnabled) {
+      return null;
+    }
+
+    return data.callToAction;
+  } catch (error) {
+    console.error("Error fetching call to action:", error);
+    return null;
+  }
+}
+
+export async function getLatestTipsAndTricks(): Promise<WpPost[]> {
+  try {
+    const data = await wpClient.request<{
+      posts: { nodes: WpPost[] };
+    }>(GET_LATEST_TIPS_AND_TRICKS);
+
+    return data.posts.nodes;
+  } catch (error) {
+    console.error("Error fetching latest tips and tricks:", error);
     return [];
   }
 }

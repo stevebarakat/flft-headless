@@ -1,0 +1,109 @@
+.container {
+  max-width: 970px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: hsl(0, 0%, 97.3%);
+  border-radius: 5px;
+  box-shadow: 0 2px 8px hsl(0, 0%, 0%, 0.08);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.textSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.headingRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.heading {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  color: hsl(0, 0%, 29%);
+  font-weight: 400;
+  margin: 0;
+}
+
+.separator {
+  color: hsl(0, 0%, 29%);
+  font-size: 1.5rem;
+}
+
+.phoneNumber {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  color: hsl(208, 72%, 56%);
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.phoneNumber:hover {
+  text-decoration: underline;
+}
+
+.descriptionRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.description {
+  font-size: 1rem;
+  line-height: 1rem;
+  color: hsl(0, 0%, 48%);
+}
+
+.link {
+  font-size: 1rem;
+  line-height: 1rem;
+  color: hsl(208, 72%, 56%);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.buttonSection {
+  flex-shrink: 0;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: linear-gradient(
+    to bottom,
+    hsl(208, 72%, 64%),
+    hsl(208, 72%, 48%)
+  );
+  color: hsl(0, 0%, 100%);
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 9999px;
+  box-shadow: 0 2px 4px hsl(0, 0%, 0%, 0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px hsl(0, 0%, 0%, 0.2);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px hsl(0, 0%, 0%, 0.15);
+}
+
