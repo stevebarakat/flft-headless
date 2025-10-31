@@ -201,8 +201,12 @@ export const GET_POST_BY_SLUG_ID = `
 `;
 
 export const GET_ALL_PAGES = `
-  query GetAllPages {
-    pages {
+  query GetAllPages($first: Int!, $after: String) {
+    pages(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       nodes {
         id
         title
@@ -214,8 +218,12 @@ export const GET_ALL_PAGES = `
 `;
 
 export const GET_ALL_POSTS = `
-  query GetAllPosts {
-    posts {
+  query GetAllPosts($first: Int!, $after: String) {
+    posts(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       nodes {
         id
         title

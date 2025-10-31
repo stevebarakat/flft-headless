@@ -38,26 +38,83 @@ type WpPage = {
   uri: string;
 };
 
+type PostsResponse = {
+  posts: {
+    pageInfo: {
+      hasNextPage: boolean;
+      endCursor: string | null;
+    };
+    nodes: WpPost[];
+  };
+};
+
 function stripHtml(html: string | null): string {
   if (!html) return "";
   return html.replace(/<[^>]*>/g, "").trim();
 }
 
+async function fetchAllPosts(): Promise<WpPost[]> {
+  const allPosts: WpPost[] = [];
+  let hasNextPage = true;
+  let cursor: string | null = null;
+  const first = 100;
+
+  console.log("Fetching posts from WordPress (with pagination)...");
+
+  while (hasNextPage) {
+    const data = await wpClient.request<PostsResponse>(GET_ALL_POSTS, {
+      first,
+      after: cursor,
+    });
+
+    allPosts.push(...data.posts.nodes);
+    hasNextPage = data.posts.pageInfo.hasNextPage;
+    cursor = data.posts.pageInfo.endCursor;
+
+    console.log(`  Fetched ${data.posts.nodes.length} posts (total: ${allPosts.length})`);
+  }
+
+  return allPosts;
+}
+
+async function fetchAllPages(): Promise<WpPage[]> {
+  const allPages: WpPage[] = [];
+  let hasNextPage = true;
+  let cursor: string | null = null;
+  const first = 100;
+
+  console.log("Fetching pages from WordPress (with pagination)...");
+
+  while (hasNextPage) {
+    const data = await wpClient.request<{
+      pages: {
+        pageInfo: {
+          hasNextPage: boolean;
+          endCursor: string | null;
+        };
+        nodes: WpPage[];
+      };
+    }>(GET_ALL_PAGES, {
+      first,
+      after: cursor,
+    });
+
+    allPages.push(...data.pages.nodes);
+    hasNextPage = data.pages.pageInfo.hasNextPage;
+    cursor = data.pages.pageInfo.endCursor;
+
+    console.log(`  Fetched ${data.pages.nodes.length} pages (total: ${allPages.length})`);
+  }
+
+  return allPages;
+}
+
 async function syncToAlgolia() {
   try {
-    console.log("Fetching posts from WordPress...");
-    const postsData = await wpClient.request<{ posts: { nodes: WpPost[] } }>(
-      GET_ALL_POSTS
-    );
-    const posts = postsData.posts.nodes;
+    const posts = await fetchAllPosts();
+    const pages = await fetchAllPages();
 
-    console.log("Fetching pages from WordPress...");
-    const pagesData = await wpClient.request<{ pages: { nodes: WpPage[] } }>(
-      GET_ALL_PAGES
-    );
-    const pages = pagesData.pages.nodes;
-
-    console.log(`Found ${posts.length} posts and ${pages.length} pages`);
+    console.log(`\nFound ${posts.length} posts and ${pages.length} pages`);
 
     const records = [
       ...posts.map((post) => ({
