@@ -1,0 +1,65 @@
+# Cursor AI Rules for Image Viewer Project
+
+## Code Style & Formatting
+
+- Use HSL color values instead of hex/rgb
+- Use CSS Modules for styling (avoid Tailwind CSS)
+- Respect global styles when using CSS Modules
+- Prefer TypeScript types over interfaces
+- Use function declarations over arrow functions
+- Include minimal comments in code
+
+## Package Preferences
+
+### Avoid These Packages:
+
+- tailwindcss
+
+### Preferred Packages:
+
+- postcss, autoprefixer, postcss-preset-env
+- stylelint, stylelint-order, stylelint-config-standard
+- react-router-dom
+- zustand
+- zod
+
+## React Guidelines
+
+- Prefer component props over state when possible
+- Use event handlers instead of useEffect for event handling
+- useEffect should only be used for syncing with external APIs (e.g., Web Audio API)
+- One concern per useEffect - split effects with long dependency lists
+- Use useMemo/useCallback to reduce dependencies to meaningful values
+
+## Programming Paradigm
+
+- Follow functional programming principles
+- Prefer immutability and pure functions
+- Avoid side effects when possible
+- Single responsibility principle for components and functions
+
+## Component Structure
+
+- Maximum 200 lines per component
+- Maximum 50 lines per function
+- Colocate related files (component, styles, tests, hooks, types, etc.) in same directory
+- Each component directory should have an index.ts file that re-exports the default component
+- Use Lucide icons for UI elements
+
+## Testing Strategy
+
+- Focus on behavior, not implementation details
+- Use layered testing approach:
+  - Unit tests: Test individual modules in isolation
+  - Integration tests: Test component interactions
+  - UI behavior tests: Use React Testing Library for user interactions
+- Test what components do, not how they do it
+- For DSP/audio internals, testing implementation details is acceptable as they're part of the public API
+
+## File Organization
+
+- Place related files together for better discoverability
+- Use index files for cleaner imports
+- Follow consistent naming conventions
+- Keep components focused and maintainable
+

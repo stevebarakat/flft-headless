@@ -70,7 +70,9 @@ export function Header({ menu, siteInfo, socialLinks }: HeaderProps) {
           </nav>
         )}
         <div className={styles.topSection}>
-          <SocialLinks links={socialLinks} orientation="horizontal" showText={false} />
+          <div className={styles.socialLinksWrapper}>
+            <SocialLinks links={socialLinks} orientation="horizontal" showText={false} />
+          </div>
           <Link href="/" className={styles.logoContainer}>
             {siteInfo.logo?.url ? (
               <Image

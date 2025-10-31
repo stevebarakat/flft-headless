@@ -15,6 +15,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 1rem 0;
+  order: 1;
 }
 
 .logoContainer {
@@ -82,6 +83,7 @@
 .nav {
   width: 100%;
   padding: 0;
+  margin-top: var(--spacing-md);
   margin-bottom: var(--spacing-sm);
   border: 1px solid var(--color-light-blue);
   background: var(--color-light-blue);
@@ -92,6 +94,7 @@
     var(--color-dark-blue) 100%
   );
   border-radius: var(--radius-md);
+  order: 2;
 }
 
 .menu {
@@ -215,8 +218,10 @@
     opacity: 0;
     transition: max-height var(--transition-normal),
       opacity var(--transition-normal);
+    margin-top: 0;
     margin-bottom: 0;
     padding: 0;
+    order: 1;
   }
 
   .navOpen {
@@ -230,14 +235,19 @@
     align-items: center;
     gap: var(--spacing-lg);
     padding: var(--spacing-md) 0;
+    order: 2;
   }
 
-  .logoContainer {
+  .socialLinksWrapper {
     order: 1;
   }
 
-  .searchContainer {
+  .logoContainer {
     order: 2;
+  }
+
+  .searchContainer {
+    order: 3;
     width: 100%;
     min-width: unset;
   }
