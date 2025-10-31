@@ -14,6 +14,7 @@ import { CategoryArchive } from "@/components/CategoryArchive";
 import { HeroSlider } from "@/components/HeroSlider";
 import { CallToAction } from "@/components/CallToAction";
 import { LatestTipsAndTricks } from "@/components/LatestTipsAndTricks";
+import { Comments } from "@/components/Comments";
 import type { WpPost } from "@/types/wp";
 import styles from "./page.module.css";
 
@@ -125,31 +126,40 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
     <article className={styles.article}>
       <div className={styles.container}>
         {post ? (
-          <div className={styles.post}>
-            <div className={styles.metadata}>
-              {post.date && (
-                <time className={styles.date} dateTime={post.date}>
-                  {formatDate(post.date)}
-                </time>
-              )}
-              {post.author?.node && (
-                <div className={styles.author}>{post.author.node.name}</div>
-              )}
-              {post.categories && formatCategories(post.categories) && (
-                <div className={styles.categories}>
-                  {formatCategories(post.categories)}
+          <>
+            <div className={styles.post}>
+              <div className={styles.metadata}>
+                {post.date && (
+                  <time className={styles.date} dateTime={post.date}>
+                    {formatDate(post.date)}
+                  </time>
+                )}
+                {post.author?.node && (
+                  <div className={styles.author}>{post.author.node.name}</div>
+                )}
+                {post.categories && formatCategories(post.categories) && (
+                  <div className={styles.categories}>
+                    {formatCategories(post.categories)}
+                  </div>
+                )}
+                <div className={styles.comments}>
+                  {getCommentText(post.commentCount)}
                 </div>
-              )}
-              <div className={styles.comments}>
-                {getCommentText(post.commentCount)}
+              </div>
+
+              <div className={styles.content}>
+                <h1 className={styles.title}>{content.title}</h1>
+                <Content content={content.content} />
               </div>
             </div>
 
-            <div className={styles.content}>
-              <h1 className={styles.title}>{content.title}</h1>
-              <Content content={content.content} />
-            </div>
-          </div>
+            {post.databaseId && (
+              <Comments
+                postId={post.databaseId}
+                comments={post.comments?.nodes || []}
+              />
+            )}
+          </>
         ) : (
           <>
             <h1 className={styles.title}>{content.title}</h1>

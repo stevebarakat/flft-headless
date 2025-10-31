@@ -16,6 +16,7 @@ import {
   GET_POSTS_BY_CATEGORY,
   GET_CATEGORY_POSTS_FOR_RSS,
   SUBMIT_CONTACT_FORM,
+  CREATE_COMMENT,
 } from "./graphql/queries";
 import type { WpMenu, WpPage, WpPost, WpSiteLogo, WpSiteInfo, WpSocialLink, WpSliderImage, WpCallToAction, WpCategoryArchive } from "@/types/wp";
 
@@ -349,6 +350,61 @@ export async function submitContactForm(data: {
     return {
       success: false,
       message: error instanceof Error ? error.message : "Failed to submit contact form",
+    };
+  }
+}
+
+export async function createComment(data: {
+  postId: number;
+  author: string;
+  authorEmail: string;
+  content: string;
+}): Promise<{
+  success: boolean;
+  comment?: {
+    id: string;
+    databaseId: number;
+    content: string;
+    date: string;
+    author: {
+      node: {
+        name: string;
+        email: string;
+      };
+    };
+  };
+  message?: string;
+}> {
+  try {
+    const result = await wpClient.request<{
+      createComment: {
+        success: boolean;
+        comment?: {
+          id: string;
+          databaseId: number;
+          content: string;
+          date: string;
+          author: {
+            node: {
+              name: string;
+              email: string;
+            };
+          };
+        };
+      };
+    }>(CREATE_COMMENT, {
+      postId: data.postId,
+      author: data.author,
+      authorEmail: data.authorEmail,
+      content: data.content,
+    });
+
+    return result.createComment;
+  } catch (error) {
+    console.error("Error creating comment:", error);
+    return {
+      success: false,
+      message: error instanceof Error ? error.message : "Failed to submit comment",
     };
   }
 }

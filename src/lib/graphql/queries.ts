@@ -50,6 +50,7 @@ export const GET_POST_BY_URI = `
     nodeByUri(uri: $uri) {
       ... on Post {
         id
+        databaseId
         title
         content
         slug
@@ -65,6 +66,21 @@ export const GET_POST_BY_URI = `
           nodes {
             name
             slug
+          }
+        }
+        commentCount
+        comments(first: 100) {
+          nodes {
+            id
+            databaseId
+            content
+            date
+            author {
+              node {
+                name
+                email
+              }
+            }
           }
         }
         featuredImage {
@@ -86,6 +102,7 @@ export const GET_POST_BY_SLUG = `
   query GetPostBySlug($slug: String!) {
     postBy(slug: $slug) {
       id
+      databaseId
       title
       content
       slug
@@ -101,6 +118,21 @@ export const GET_POST_BY_SLUG = `
         nodes {
           name
           slug
+        }
+      }
+      commentCount
+      comments(first: 100) {
+        nodes {
+          id
+          databaseId
+          content
+          date
+          author {
+            node {
+              name
+              email
+            }
+          }
         }
       }
       featuredImage {
@@ -121,6 +153,7 @@ export const GET_POST_BY_SLUG_ID = `
   query GetPostBySlugId($slug: String!) {
     post(id: $slug, idType: SLUG) {
       id
+      databaseId
       title
       content
       slug
@@ -136,6 +169,21 @@ export const GET_POST_BY_SLUG_ID = `
         nodes {
           name
           slug
+        }
+      }
+      commentCount
+      comments(first: 100) {
+        nodes {
+          id
+          databaseId
+          content
+          date
+          author {
+            node {
+              name
+              email
+            }
+          }
         }
       }
       featuredImage {
@@ -368,6 +416,31 @@ export const SUBMIT_CONTACT_FORM = `
       success
       submissionId
       message
+    }
+  }
+`;
+
+export const CREATE_COMMENT = `
+  mutation CreateComment($postId: Int!, $author: String!, $authorEmail: String!, $content: String!) {
+    createComment(input: {
+      commentOn: $postId
+      author: $author
+      authorEmail: $authorEmail
+      content: $content
+    }) {
+      success
+      comment {
+        id
+        databaseId
+        content
+        date
+        author {
+          node {
+            name
+            email
+          }
+        }
+      }
     }
   }
 `;

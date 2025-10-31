@@ -35,8 +35,22 @@ export type WpPage = {
   } | null;
 };
 
+export type WpComment = {
+  id: string;
+  databaseId: number;
+  content: string;
+  date: string;
+  author: {
+    node: {
+      name: string;
+      email: string;
+    };
+  };
+};
+
 export type WpPost = {
   id: string;
+  databaseId?: number;
   title: string;
   content: string | null;
   slug: string;
@@ -58,6 +72,9 @@ export type WpPost = {
     }>;
   } | null;
   commentCount?: number | null;
+  comments?: {
+    nodes: WpComment[];
+  } | null;
 };
 
 export type WpCategory = {

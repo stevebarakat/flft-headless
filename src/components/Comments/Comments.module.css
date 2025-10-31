@@ -1,0 +1,157 @@
+.comments {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid hsl(0 0% 87%);
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: hsl(0 0% 9.804%);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.comment {
+  padding: 1.5rem;
+  background-color: hsl(0 0% 98%);
+  border-radius: 4px;
+}
+
+.meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.author {
+  font-weight: 600;
+  color: hsl(0 0% 9.804%);
+}
+
+.date {
+  font-size: 0.875rem;
+  color: hsl(0 0% 45%);
+}
+
+.content {
+  color: hsl(0 0% 29.8%);
+  line-height: 1.6;
+}
+
+.content p {
+  margin: 0 0 0.5rem 0;
+}
+
+.content p:last-child {
+  margin-bottom: 0;
+}
+
+.formSection {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid hsl(0 0% 87%);
+}
+
+.formHeading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: hsl(0 0% 9.804%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 600px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: hsl(0 0% 9.804%);
+}
+
+.input,
+.textarea {
+  padding: 0.75rem;
+  border: 1px solid hsl(0 0% 80%);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: hsl(0 0% 29.8%);
+  background-color: hsl(0 0% 100%);
+  transition: border-color 0.2s;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-med-blue);
+}
+
+.input:disabled,
+.textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.button {
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: hsl(0 0% 100%);
+  background-color: var(--color-med-blue);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  align-self: flex-start;
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--color-dark-blue);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  padding: 1rem;
+  background-color: hsl(0 100% 97%);
+  border: 1px solid hsl(0 80% 85%);
+  border-radius: 4px;
+  color: hsl(0 60% 35%);
+  font-size: 0.9375rem;
+}
+
+.success {
+  padding: 1rem;
+  background-color: hsl(120 100% 97%);
+  border: 1px solid hsl(120 80% 85%);
+  border-radius: 4px;
+  color: hsl(120 60% 35%);
+  font-size: 0.9375rem;
+}
+
