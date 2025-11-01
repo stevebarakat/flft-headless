@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
         pathname: "/wp-content/**",
       },
       {
+        protocol: "http",
+        hostname: "old.flft-headless.online",
+      },
+      {
         protocol: "https",
         hostname: "images.unsplash.com",
       },

@@ -7,7 +7,8 @@ import { stripHtml } from "../src/lib/utils";
 
 config({ path: resolve(__dirname, "../env.local") });
 
-const WP_GRAPHQL_ENDPOINT = process.env.WP_GRAPHQL_ENDPOINT || "http://localhost:10023/graphql";
+const WP_GRAPHQL_ENDPOINT =
+  process.env.WP_GRAPHQL_ENDPOINT || "https://old.flft-headless.online/graphql";
 
 const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID || "";
 const ALGOLIA_ADMIN_API_KEY = process.env.ALGOLIA_ADMIN_API_KEY || "";
@@ -69,16 +70,21 @@ async function fetchAllPosts(): Promise<WpPost[]> {
   console.log("Fetching posts from WordPress (with pagination)...");
 
   while (hasNextPage) {
-    const data: PostsResponse = await wpClient.request<PostsResponse>(GET_ALL_POSTS, {
-      first,
-      after: cursor,
-    });
+    const data: PostsResponse = await wpClient.request<PostsResponse>(
+      GET_ALL_POSTS,
+      {
+        first,
+        after: cursor,
+      }
+    );
 
     allPosts.push(...data.posts.nodes);
     hasNextPage = data.posts.pageInfo.hasNextPage;
     cursor = data.posts.pageInfo.endCursor;
 
-    console.log(`  Fetched ${data.posts.nodes.length} posts (total: ${allPosts.length})`);
+    console.log(
+      `  Fetched ${data.posts.nodes.length} posts (total: ${allPosts.length})`
+    );
   }
 
   return allPosts;
@@ -93,16 +99,21 @@ async function fetchAllPages(): Promise<WpPage[]> {
   console.log("Fetching pages from WordPress (with pagination)...");
 
   while (hasNextPage) {
-    const data: PagesResponse = await wpClient.request<PagesResponse>(GET_ALL_PAGES, {
-      first,
-      after: cursor,
-    });
+    const data: PagesResponse = await wpClient.request<PagesResponse>(
+      GET_ALL_PAGES,
+      {
+        first,
+        after: cursor,
+      }
+    );
 
     allPages.push(...data.pages.nodes);
     hasNextPage = data.pages.pageInfo.hasNextPage;
     cursor = data.pages.pageInfo.endCursor;
 
-    console.log(`  Fetched ${data.pages.nodes.length} pages (total: ${allPages.length})`);
+    console.log(
+      `  Fetched ${data.pages.nodes.length} pages (total: ${allPages.length})`
+    );
   }
 
   return allPages;
@@ -152,4 +163,3 @@ async function syncToAlgolia() {
 }
 
 syncToAlgolia();
-
