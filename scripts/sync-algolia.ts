@@ -50,6 +50,16 @@ type PostsResponse = {
   };
 };
 
+type PagesResponse = {
+  pages: {
+    pageInfo: {
+      hasNextPage: boolean;
+      endCursor: string | null;
+    };
+    nodes: WpPage[];
+  };
+};
+
 async function fetchAllPosts(): Promise<WpPost[]> {
   const allPosts: WpPost[] = [];
   let hasNextPage = true;
@@ -59,7 +69,7 @@ async function fetchAllPosts(): Promise<WpPost[]> {
   console.log("Fetching posts from WordPress (with pagination)...");
 
   while (hasNextPage) {
-    const data = await wpClient.request<PostsResponse>(GET_ALL_POSTS, {
+    const data: PostsResponse = await wpClient.request<PostsResponse>(GET_ALL_POSTS, {
       first,
       after: cursor,
     });
@@ -83,15 +93,7 @@ async function fetchAllPages(): Promise<WpPage[]> {
   console.log("Fetching pages from WordPress (with pagination)...");
 
   while (hasNextPage) {
-    const data = await wpClient.request<{
-      pages: {
-        pageInfo: {
-          hasNextPage: boolean;
-          endCursor: string | null;
-        };
-        nodes: WpPage[];
-      };
-    }>(GET_ALL_PAGES, {
+    const data: PagesResponse = await wpClient.request<PagesResponse>(GET_ALL_PAGES, {
       first,
       after: cursor,
     });

@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import { getCategoryPostsForRSS, getSiteInfo } from "@/lib/wp-data";
 import { stripHtml } from "@/lib/utils";
 

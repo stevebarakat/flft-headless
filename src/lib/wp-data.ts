@@ -1,7 +1,6 @@
 import { wpClient } from "./wp-client";
 import {
   GET_MENU_BY_NAME,
-  GET_ALL_MENUS,
   GET_PAGE_BY_URI,
   GET_POST_BY_URI,
   GET_POST_BY_SLUG,
@@ -79,7 +78,7 @@ export async function getPostByUri(uri: string): Promise<WpPost | null> {
       if (data.nodeByUri) {
         return data.nodeByUri;
       }
-    } catch (error) {
+    } catch {
       continue;
     }
   }
@@ -272,7 +271,12 @@ async function countCategoryPosts(categorySlug: string, first: number = 100): Pr
   let hasNextPage = true;
 
   while (hasNextPage) {
-    const pageData = await wpClient.request<{
+    const pageData: {
+      posts: {
+        pageInfo: { hasNextPage: boolean; endCursor: string | null };
+        nodes: WpPost[];
+      };
+    } = await wpClient.request<{
       posts: {
         pageInfo: { hasNextPage: boolean; endCursor: string | null };
         nodes: WpPost[];
@@ -392,7 +396,12 @@ async function countAuthorPosts(authorName: string, first: number = 100): Promis
   let hasNextPage = true;
 
   while (hasNextPage) {
-    const pageData = await wpClient.request<{
+    const pageData: {
+      posts: {
+        pageInfo: { hasNextPage: boolean; endCursor: string | null };
+        nodes: WpPost[];
+      };
+    } = await wpClient.request<{
       posts: {
         pageInfo: { hasNextPage: boolean; endCursor: string | null };
         nodes: WpPost[];

@@ -1,4 +1,4 @@
-const { liteClient } = require("algoliasearch/lite");
+import { liteClient } from "algoliasearch/lite";
 
 const appId = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID || "49WXAK2Z66";
 const apiKey = process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY || "f49c08959e6093460bd40aa51c514b2e";

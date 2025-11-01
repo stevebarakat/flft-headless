@@ -116,7 +116,7 @@ export default async function DynamicPage({ params, searchParams }: PageProps) {
     );
   }
 
-  let pageData = await getPageByUri(uri);
+  const pageData = await getPageByUri(uri);
   let post: WpPost | null = null;
 
   if (!pageData || !pageData.title || !pageData.content) {

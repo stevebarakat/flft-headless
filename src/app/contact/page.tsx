@@ -9,7 +9,7 @@ export default function ContactPage() {
         <div className={styles.content}>
           <p className={styles.intro}>
             For general inquiries, booking a charter, or reporting a bug, send
-            us a message and we'll respond as soon as possible.
+            us a message and we&apos;ll respond as soon as possible.
           </p>
           <ContactForm />
         </div>
