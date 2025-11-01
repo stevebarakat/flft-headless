@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         pathname: "/wp-content/**",
       },
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "old.flft-headless.online",
       },
       {
